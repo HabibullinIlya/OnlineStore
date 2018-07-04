@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login">Войти</string>
+    <string name="signup">Регистрация</string>
+    <string name="remember">Запомнить меня</string>
+    <string name="name">Имя</string>
+    <string name="email">Электронная почта</string>
+    <string name="password">Пароль</string>
+    <string name="password_rep">Повторите пароль</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="consent">Я согласен на обработку персональных данных</string>
+</resources>
