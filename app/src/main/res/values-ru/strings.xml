@@ -9,4 +9,5 @@
     <string name="password_rep">Повторите пароль</string>
     <string name="register">Зарегистрироваться</string>
     <string name="consent">Я согласен на обработку персональных данных</string>
+    <string name="fail_login">Ошибка авторизации</string>
 </resources>

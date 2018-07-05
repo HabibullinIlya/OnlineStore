@@ -9,4 +9,5 @@
     <string name="password_rep">Repeat password</string>
     <string name="register">Register</string>
     <string name="consent">I agree to the processing of personal data</string>
+    <string name="fail_login">Failed Log In</string>
 </resources>
