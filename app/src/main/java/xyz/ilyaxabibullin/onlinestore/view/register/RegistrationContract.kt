@@ -10,6 +10,6 @@ interface RegistrationContract {
     }
 
     interface Presenter:BasePresenter {
-        fun register(fields: Array<String>)
+        fun register(email:String, fName:String, lName:String, pass: String)
     }
 }

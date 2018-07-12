@@ -1,6 +1,8 @@
 package xyz.ilyaxabibullin.onlinestore
 
 import android.app.Application
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,10 +21,19 @@ object App: Application(){
         interspector.level = HttpLoggingInterceptor.Level.BODY
         var client = OkHttpClient.Builder().addInterceptor(interspector).build()
 
+        Realm.init(this)
+
+        Realm.setDefaultConfiguration(RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .name("onlineshop.db")
+                .build())
+
         retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
+
+
     }
 }

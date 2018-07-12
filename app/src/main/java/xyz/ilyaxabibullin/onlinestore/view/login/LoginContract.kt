@@ -5,10 +5,13 @@ import xyz.ilyaxabibullin.onlinestore.base.BaseView
 
 interface LoginContract {
     interface Presenter: BasePresenter {
-        fun authtorisation(login:String,password:String)
+        fun authorisation(login:String, password:String)
+        fun regBtnWasClicked()
+        fun loginBtnWasClicked()
     }
     interface View: BaseView {
         fun showFailedMessage()
-        fun navigateTo()
+        fun navigateToRegActivity()
+        fun navigateToMyShop()
     }
 }

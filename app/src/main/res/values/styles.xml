@@ -6,6 +6,30 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="cardViewStyle">@style/CardView</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/colorSecondaryLight</item>
+    </style>
+
+    <style name="ToolbarStyle" parent="AppTheme">
+        <item name="colorControlNormal">@color/colorSecondaryLight</item>
+        <item name="android:textColorSecondary">@color/colorSecondaryLight</item>
+        <item name="android:color">@color/colorSecondaryLight</item>
+    </style>
+
+    <style name="AppSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textCursorDrawable">@drawable/white_cursor</item>
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="searchIcon">@drawable/icon_toolbar_search</item>
+        <item name="closeIcon">@drawable/icon_toolbar_clear</item>
+        <item name="queryHint">@string/search_hint</item>
+        <item name="android:imeActionId">6</item>
     </style>
 
 </resources>

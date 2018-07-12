@@ -4,10 +4,18 @@
     <string name="signup">Sign Up</string>
     <string name="remember">Remember me</string>
     <string name="name">Name</string>
+    <string name="last_name">Last name</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="password_rep">Repeat password</string>
     <string name="register">Register</string>
     <string name="consent">I agree to the processing of personal data</string>
     <string name="fail_login">Failed Log In</string>
+    <string name="todo">TODO</string>
+    <string name="search_hint">Product name</string>
+    <string name="buy_now">Buy now</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="fail_pass_eq">Password are not equal</string>
+    <string name="fail_pass_small">Passwords must be greater than 8 characters</string>
+
 </resources>
