@@ -7,9 +7,10 @@ import android.widget.EditText
 import android.widget.Toast
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
-import xyz.ilyaxabibullin.onlinestore.view.ProductsList.ProductListActivity
+import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductListActivity
 
 import xyz.ilyaxabibullin.onlinestore.view.register.RegistrationActivity
+import xyz.ilyaxabibullin.onlinestore.view.shop.create_shop.CreateShopActivity
 
 class LoginActivity : BaseActivity(),LoginContract.View {
 
@@ -24,6 +25,7 @@ class LoginActivity : BaseActivity(),LoginContract.View {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         emailText = findViewById(R.id.login_field)
         passText = findViewById(R.id.password_field)
@@ -48,7 +50,7 @@ class LoginActivity : BaseActivity(),LoginContract.View {
     }
 
     override fun navigateToMyShop() {
-        val intent = Intent(this, ProductListActivity::class.java)
+        val intent = Intent(this, CreateShopActivity::class.java)
         startActivity(intent)
     }
 

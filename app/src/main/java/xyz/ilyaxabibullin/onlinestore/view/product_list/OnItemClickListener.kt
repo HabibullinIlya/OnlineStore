@@ -1,4 +1,4 @@
-package xyz.ilyaxabibullin.onlinestore.view.ProductsList
+package xyz.ilyaxabibullin.onlinestore.view.product_list
 
 import android.view.View
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/firstrelative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include layout="@layout/toolbar"></include>
+
+    <RelativeLayout
+        android:layout_below="@+id/toolbar_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/shop_name_edit"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar_actionbar"
+            android:layout_marginTop="16dp"
+            android:hint="@string/name_of_shop" />
+
+        <EditText
+            android:id="@+id/shop_description_edit"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shop_name_edit"
+            android:layout_marginTop="16dp"
+            android:inputType="textMultiLine"
+            android:hint="@string/description_of_shop" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shop_description_edit"
+            android:layout_marginTop="16dp"
+            android:text="@string/create_shop"
+            />
+
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -17,5 +17,8 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="fail_pass_eq">Password are not equal</string>
     <string name="fail_pass_small">Passwords must be greater than 8 characters</string>
+    <string name="name_of_shop">name of shop</string>
+    <string name="description_of_shop">description of shop</string>
+    <string name="create_shop">create shop</string>
 
 </resources>

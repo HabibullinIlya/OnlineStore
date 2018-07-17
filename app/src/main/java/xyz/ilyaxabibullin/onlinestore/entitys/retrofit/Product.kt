@@ -4,4 +4,5 @@ class Product{
     var name = ""
     var price = 0.0
     var description = ""
+    var link = ""
 }

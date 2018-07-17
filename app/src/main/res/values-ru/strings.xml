@@ -15,5 +15,8 @@
     <string name="add_to_cart">В корзину</string>
     <string name="fail_pass_eq">Пароли не совпадают</string>
     <string name="fail_pass_small">Пароль должен содержать больше 8 символов</string>
+    <string name="name_of_shop">Название магазина</string>
+    <string name="description_of_shop">Описание магазина</string>
+    <string name="create_shop">Создать магазин</string>
 
 </resources>

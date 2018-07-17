@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object App: Application(){
-    var token:String? = null
+    var token:String = ""
     var id:Int? = null
 
     lateinit var retrofit:Retrofit
