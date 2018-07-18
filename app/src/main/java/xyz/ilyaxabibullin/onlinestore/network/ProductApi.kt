@@ -9,8 +9,10 @@ interface ProductApi {
     @POST("/products")
     fun addProducts(@Query("token")token:String,
                     @Query("name") name: String,
+                    @Query("description") description: String,
+                    @Query("amount") amount:Int,
                     @Query("price") price: Double,
-                    @Query("description") description: String): Call<Response>//но это не точно
+                    @Query("category")category: String): Call<Product>//но это не точно
 
     @GET("/products")
     fun getProducts(@Query("token") token:String,
@@ -21,9 +23,9 @@ interface ProductApi {
                     @Query("id")id:Int,
                     @Query("name") name: String,
                     @Query("price") price: Double,
-                    @Query("description") description: String):Call<Product>
+                    @Query("description") description: String):Call<Product>//и это тоже
 
     @DELETE("/products")
     fun deleteProduct(@Query("token") token:String,
-                      @Query("id") id: Int)
+                      @Query("id") id: Int)//тоже хз пока
 }

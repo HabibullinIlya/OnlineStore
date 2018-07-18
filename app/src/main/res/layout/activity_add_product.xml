@@ -15,7 +15,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:hint="@string/product_name"
-        android:layout_below="@+id/toolbar_actionbar"/>
+        android:layout_below="@+id/toolbar_actionbar"
+        android:inputType="text"/>
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +25,9 @@
         android:layout_below="@+id/product_name_edit"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:hint="@string/description_of_product"/>
+        android:hint="@string/description_of_product"
+        android:inputType="text"/>
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +35,9 @@
         android:layout_below="@+id/product_description_edit"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:hint="@string/amount"/>
+        android:hint="@string/amount"
+        android:inputType="text"/>
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +45,9 @@
         android:layout_below="@+id/amount"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:hint="@string/price"/>
+        android:hint="@string/price"
+        android:inputType="text"/>
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,11 +55,13 @@
         android:layout_below="@+id/product_price_edit"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:hint="category"/>
+        android:hint="@string/category"
+        android:inputType="text"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/create_product"
+        android:id="@+id/add_product"
         android:layout_below="@+id/category_edit"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

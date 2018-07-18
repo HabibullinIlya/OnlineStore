@@ -27,6 +27,7 @@ public class ProductListActivity extends AppCompatActivity
     ArrayList<Product> products;
     Toolbar mActionToolbar;
 
+    ProductListContract.Presenter presenter;
     RecyclerView rv;
 
     @Override
@@ -34,20 +35,15 @@ public class ProductListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
-        mActionToolbar = findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(mActionToolbar);
+        presenter = new ProductListPresenter(this);
+        initWidgets();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-        rv = findViewById(R.id.rv);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        rv.setLayoutManager(manager);
         products = new ArrayList<>();
         fakeData();
+
         ProductListAdapter adapter = new ProductListAdapter(products);
         rv.setAdapter(adapter);
+
         adapter.setOnItemClickListener((position, v) -> {
             Toast toast = Toast.makeText(ProductListActivity.this, String.valueOf(position), Toast.LENGTH_LONG);
             toast.show();
@@ -60,13 +56,14 @@ public class ProductListActivity extends AppCompatActivity
             intent.putExtra("number",String.valueOf(products.get(position).getNumber()));
             startActivity(intent);
         });
+
     }
 
     private void fakeData() {
         Product product = new Product();
-        product.setPrice(17);
-        product.setName("lolololo trolololooo");
-        product.setDescription("kekekekekekek");
+        product.setPrice(99999.9);
+        product.setName("Кот с ноутбуком");
+        product.setDescription("Очень хороший кот, который пишет отменный код");
         product.setLink("https://sun9-8.userapi.com/c635104/v635104289/24d73/NpaOvn9JMUE.jpg");
         product.setNumber(10);
         products.add(product);
@@ -87,6 +84,20 @@ public class ProductListActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
+    private void initWidgets(){
+
+        mActionToolbar = findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(mActionToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+
+        rv = findViewById(R.id.rv);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        rv.setLayoutManager(manager);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,6 +116,7 @@ public class ProductListActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextChange(String newText) {
                 System.out.println(newText);
+
                 return true;
             }
         });
