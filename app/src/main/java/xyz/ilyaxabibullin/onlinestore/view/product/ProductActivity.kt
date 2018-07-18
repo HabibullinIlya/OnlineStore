@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_poduct.*
 
 import xyz.ilyaxabibullin.onlinestore.R
@@ -26,7 +27,20 @@ class ProductActivity: BaseActivity() {
         mActionBarToolBar = findViewById(R.id.toolbar_actionbar)
         setSupportActionBar(mActionBarToolBar)
         initWidgets()
+        loadFromIntent()
+    }
 
+    private fun loadFromIntent() {
+        var intent = getIntent()
+        nameTextView.text = intent.getStringExtra("name")
+        priceTextView.text = intent.getStringExtra("price").toString()
+        descriptionTextView.text = intent.getStringExtra("description")
+        var imageLink = intent.getStringExtra("link")
+        Glide.with(this)
+                .load(imageLink)
+                .into(productImage)
+
+        numberTextView.text = intent.getStringExtra("number")
 
     }
 
@@ -41,7 +55,6 @@ class ProductActivity: BaseActivity() {
         priceTextView = findViewById(R.id.price_product)
         numberTextView = findViewById(R.id.number_of_product)
         descriptionTextView = findViewById(R.id.description_product)
-
 
     }
 

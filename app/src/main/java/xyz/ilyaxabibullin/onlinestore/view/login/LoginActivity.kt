@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_login.*
+import xyz.ilyaxabibullin.onlinestore.App
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
 import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductListActivity
@@ -36,8 +38,8 @@ class LoginActivity : BaseActivity(),LoginContract.View {
         }
         loginBtn = findViewById(R.id.button_login)
         loginBtn.setOnClickListener{
+            App.remember = checkBox.isChecked
             presenter.authorisation(emailText.text.toString(),passText.text.toString())
-
         }
     }
     override fun showFailedMessage() {
@@ -50,7 +52,7 @@ class LoginActivity : BaseActivity(),LoginContract.View {
     }
 
     override fun navigateToMyShop() {
-        val intent = Intent(this, CreateShopActivity::class.java)
+        val intent = Intent(this, ProductListActivity::class.java)
         startActivity(intent)
     }
 

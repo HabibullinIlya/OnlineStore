@@ -1,5 +1,6 @@
 package xyz.ilyaxabibullin.onlinestore.view.product_list;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,9 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
@@ -21,11 +19,12 @@ import java.util.List;
 
 import xyz.ilyaxabibullin.onlinestore.R;
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product;
+import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity;
 
 public class ProductListActivity extends AppCompatActivity
     implements ProductListContract.View{
 
-    ArrayList<Product> users;
+    ArrayList<Product> products;
     Toolbar mActionToolbar;
 
     RecyclerView rv;
@@ -45,30 +44,36 @@ public class ProductListActivity extends AppCompatActivity
         rv = findViewById(R.id.rv);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         rv.setLayoutManager(manager);
-        users = new ArrayList<>();
+        products = new ArrayList<>();
         fakeData();
-        ProductListAdapter adapter = new ProductListAdapter(users);
+        ProductListAdapter adapter = new ProductListAdapter(products);
         rv.setAdapter(adapter);
         adapter.setOnItemClickListener((position, v) -> {
             Toast toast = Toast.makeText(ProductListActivity.this, String.valueOf(position), Toast.LENGTH_LONG);
             toast.show();
             System.out.println(position);
+            Intent intent = new Intent(ProductListActivity.this, ProductActivity.class);
+            intent.putExtra("name",products.get(position).getName());
+            intent.putExtra("price",String.valueOf(products.get(position).getPrice()) );
+            intent.putExtra("description",products.get(position).getDescription());
+            intent.putExtra("link",products.get(position).getLink());
+            intent.putExtra("number",String.valueOf(products.get(position).getNumber()));
+            startActivity(intent);
         });
-
-
     }
 
     private void fakeData() {
-        Product user = new Product();
-        user.setPrice(17);
-        user.setName("lolololo trolololooo");
-        user.setDescription("kekekekekekek");
-        user.setLink("https://sun9-8.userapi.com/c635104/v635104289/24d73/NpaOvn9JMUE.jpg");
-        users.add(user);
+        Product product = new Product();
+        product.setPrice(17);
+        product.setName("lolololo trolololooo");
+        product.setDescription("kekekekekekek");
+        product.setLink("https://sun9-8.userapi.com/c635104/v635104289/24d73/NpaOvn9JMUE.jpg");
+        product.setNumber(10);
+        products.add(product);
     }
     @Override
     public void showItems(@NotNull List<Product> items) {
-        ProductListAdapter adapter = new ProductListAdapter(users);
+        ProductListAdapter adapter = new ProductListAdapter(products);
         rv.setAdapter(adapter);
     }
 

@@ -20,5 +20,11 @@
     <string name="name_of_shop">name of shop</string>
     <string name="description_of_shop">description of shop</string>
     <string name="create_shop">create shop</string>
-
+    <string name="products">Products</string>
+    <string name="product_name">Name of product</string>
+    <string name="description_of_product">Description of product</string>
+    <string name="price">Price</string>
+    <string name="amount">Amount</string>
+    <string name="add_product">Add product</string>
+    <string name="category">Category</string>
 </resources>

@@ -1,5 +1,12 @@
 package xyz.ilyaxabibullin.onlinestore.view.login
 
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import xyz.ilyaxabibullin.onlinestore.App
+import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.AuthResponse
+import xyz.ilyaxabibullin.onlinestore.network.UserApi
+
 class LoginPresenter : LoginContract.Presenter {
     val view: LoginContract.View
 
@@ -9,7 +16,7 @@ class LoginPresenter : LoginContract.Presenter {
 
     override fun authorisation(login:String, password:String) {
         loginBtnWasClicked()
-        /*App.retrofit.create(UserApi::class.java).auth(login,password).enqueue(object: Callback<AuthResponse> {
+        App.retrofit.create(UserApi::class.java).auth(login,password).enqueue(object: Callback<AuthResponse> {
             override fun onFailure(call: Call<AuthResponse>?, t: Throwable?) {
                 view.showFailedNetworkMessage()
             }
@@ -25,7 +32,7 @@ class LoginPresenter : LoginContract.Presenter {
 
             }
 
-        })*/
+        })
     }
     override fun regBtnWasClicked(){
         view.navigateToRegActivity()

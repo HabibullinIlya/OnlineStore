@@ -18,5 +18,12 @@
     <string name="name_of_shop">Название магазина</string>
     <string name="description_of_shop">Описание магазина</string>
     <string name="create_shop">Создать магазин</string>
+    <string name="products">Товары</string>
+    <string name="product_name">Наименование товара</string>
+    <string name="description_of_product">Описание товара</string>
+    <string name="price">Цена</string>
+    <string name="amount">Количество</string>
+    <string name="add_product">Добавить товар</string>
+    <string name="category">Категория</string>
 
 </resources>

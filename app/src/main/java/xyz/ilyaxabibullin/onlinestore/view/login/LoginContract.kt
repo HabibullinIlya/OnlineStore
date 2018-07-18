@@ -14,4 +14,8 @@ interface LoginContract {
         fun navigateToRegActivity()
         fun navigateToMyShop()
     }
+
+    interface Model {
+
+    }
 }

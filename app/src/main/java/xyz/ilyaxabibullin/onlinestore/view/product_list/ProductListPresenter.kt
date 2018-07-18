@@ -4,13 +4,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import xyz.ilyaxabibullin.onlinestore.App
-import xyz.ilyaxabibullin.onlinestore.App.token
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
 import xyz.ilyaxabibullin.onlinestore.network.ProductApi
 
 class ProductListPresenter(view: ProductListContract.View):ProductListContract.Presenter{
-
-
 
     override fun queryWasChanged(searchQuery: String) {
         searchProducts(searchQuery);
