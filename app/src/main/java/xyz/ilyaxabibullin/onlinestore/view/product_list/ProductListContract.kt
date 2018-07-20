@@ -4,13 +4,15 @@ import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
 
 interface ProductListContract {
     interface Presenter {
-        fun searchProducts(searchQuery: String): List<Product>;
-        fun defaultLoadProducts():List<Product>;
-        fun queryWasChanged(searchQuery: String);
+        fun searchProducts(searchQuery: String)
+        fun defaultLoadProducts()
+        fun queryWasChanged(searchQuery: String)
+        fun scrolledToEnd()
+
     }
 
     interface View {
-
-        fun showItems(items: List<Product>);
+        fun loadNextPage(products: ArrayList<Product>)
+        fun showItems(items: ArrayList<Product>);
     }
 }

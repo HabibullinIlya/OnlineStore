@@ -3,12 +3,12 @@ package xyz.ilyaxabibullin.onlinestore.network
 import retrofit2.Call
 import retrofit2.http.POST
 import retrofit2.http.Query
-import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.RespUser
+import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.UserResponce
 
 interface RegisterApi{
     @POST("/register")
     fun register(@Query("email") email:String,
                  @Query("first_name")firstName:String,
                  @Query("last_name")lastName:String,
-                 @Query("password")password:String): Call<RespUser>
+                 @Query("password")password:String): Call<UserResponce>
 }

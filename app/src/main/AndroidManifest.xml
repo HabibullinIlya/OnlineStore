@@ -31,8 +31,10 @@
         <activity android:name=".view.product_list.ProductListActivity" />
         <activity android:name=".view.shop.create_shop.CreateShopActivity" />
         <activity android:name=".view.login.LoginActivity" />
-        <activity android:name=".CreateProductActivtity" />
-        <activity android:name=".OrderActivity"></activity>
+        <activity android:name=".view.addproduct.AddProductActivity" />
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".view.cart.CartActivity"
+            android:label="cart"></activity>
     </application>
 
 </manifest>

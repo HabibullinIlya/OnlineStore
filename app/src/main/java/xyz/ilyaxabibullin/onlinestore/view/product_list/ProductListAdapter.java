@@ -50,12 +50,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull UserHolder holder, int i) {
-        ImageView imageView = ((UserHolder) holder).itemImage;
+        ImageView imageView =  holder.itemImage;
         holder.name.setText(products.get(i).getName());
         holder.price.setText(String.valueOf(products.get(i).getPrice()));
-        Glide.with(holder.itemView.getContext())
+       /* Glide.with(holder.itemView.getContext())
                 .load(products.get(i).getLink())
-                .into(imageView);
+                .into(imageView);*/
 
     }
 

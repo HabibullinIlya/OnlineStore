@@ -5,8 +5,8 @@ import xyz.ilyaxabibullin.onlinestore.base.BaseView
 
 interface RegistrationContract {
     interface View : BaseView {
-        fun showFailMessage()
         fun navigate()
+        fun registrationError()
     }
 
     interface Presenter:BasePresenter {

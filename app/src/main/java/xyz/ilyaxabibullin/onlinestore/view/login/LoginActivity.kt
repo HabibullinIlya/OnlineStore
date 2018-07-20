@@ -49,11 +49,13 @@ class LoginActivity : BaseActivity(),LoginContract.View {
     override fun navigateToRegActivity() {
         val intent = Intent(this, RegistrationActivity::class.java)
         startActivity(intent)
+
     }
 
     override fun navigateToMyShop() {
         val intent = Intent(this, ProductListActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
 

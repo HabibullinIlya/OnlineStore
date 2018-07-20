@@ -1,11 +1,31 @@
 package xyz.ilyaxabibullin.onlinestore.entitys.retrofit
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 class Product{
+    @SerializedName("id")
+    @Expose
+    var id = 0
+
+    @SerializedName("name")
+    @Expose
     var name = ""
+
+    @SerializedName("price")
+    @Expose
     var price = 0.0
+
+    @SerializedName("description")
+    @Expose
     var description = ""
-    var link = ""
+
+
+
+    @SerializedName("amount")
+    @Expose
     var number = 0
+
     constructor(){}
     constructor(name:String,price:Double){
         this.name = name

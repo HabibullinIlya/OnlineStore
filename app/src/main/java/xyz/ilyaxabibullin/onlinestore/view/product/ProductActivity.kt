@@ -1,5 +1,6 @@
 package xyz.ilyaxabibullin.onlinestore.view.product
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -10,8 +11,14 @@ import kotlinx.android.synthetic.main.activity_poduct.*
 
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
+import xyz.ilyaxabibullin.onlinestore.view.cart.CartActivity
+import xyz.ilyaxabibullin.onlinestore.view.shop.ShopActivity
 
-class ProductActivity: BaseActivity() {
+class ProductActivity: BaseActivity(),ProductContract.View {
+
+    private var presenter:ProductContract.Presenter = ProductPresenter(this)
+
+
     private lateinit var mActionBarToolBar: Toolbar
 
     private lateinit var productImage: ImageView
@@ -19,6 +26,8 @@ class ProductActivity: BaseActivity() {
     private lateinit var priceTextView: TextView
     private lateinit var numberTextView: TextView
     private lateinit var descriptionTextView: TextView
+
+    private var shopId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +50,7 @@ class ProductActivity: BaseActivity() {
                 .into(productImage)
 
         numberTextView.text = intent.getStringExtra("number")
+        shopId = Integer.parseInt(intent.getStringExtra("id"))
 
     }
 
@@ -56,6 +66,26 @@ class ProductActivity: BaseActivity() {
         numberTextView = findViewById(R.id.number_of_product)
         descriptionTextView = findViewById(R.id.description_product)
 
+        to_shop.setOnClickListener{
+            presenter.btnToShopWasClicked(shopId)
+        }
+
+    }
+
+    override fun addToCart() {
+        val intent = Intent(this, CartActivity::class.java)
+        //intent.putExtra("id",id)
+        startActivity(intent)
+    }
+
+    override fun navigateToShop() {
+        val intent = Intent(this,ShopActivity::class.java)
+        //intent.putExtra("id",App.userId)
+        startActivity(intent)
+    }
+
+    override fun navigateToOrder() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

@@ -3,17 +3,12 @@ package xyz.ilyaxabibullin.onlinestore.entitys.retrofit
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
-
-class RespUser{
+class ProductResponse{
     @SerializedName("error")
     @Expose
-    var error: Boolean? = null
-
-    @SerializedName("user")
+    var error = false
+    @SerializedName("product")
     @Expose
-    var user: RespUser? = null
-
-
+    var product:Product? = null
 
 }

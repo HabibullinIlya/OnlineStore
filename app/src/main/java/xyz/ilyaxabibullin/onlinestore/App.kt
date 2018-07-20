@@ -20,7 +20,10 @@ class App: Application(){
         var id:Int? = null
         var token:String = ""
         lateinit var retrofit:Retrofit
-        private val baseUrl = "https://ilyahabibullin.xyz"
+        var userId = 0
+
+        //temp URL
+        private val baseUrl = "http://xz15e.mocklab.io"
 
         fun checkRemember(){
             println("чекаю в App")

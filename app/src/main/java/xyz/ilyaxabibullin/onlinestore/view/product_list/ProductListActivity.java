@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import java.util.List;
 import xyz.ilyaxabibullin.onlinestore.R;
 import xyz.ilyaxabibullin.onlinestore.base.PaginationScrollListener;
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product;
+import xyz.ilyaxabibullin.onlinestore.view.cart.CartActivity;
 import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity;
 
 public class ProductListActivity extends AppCompatActivity
@@ -43,7 +45,7 @@ public class ProductListActivity extends AppCompatActivity
     private static final int PAGE_START = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
-    private int TOTAL_PAGES = 3;
+    private int TOTAL_PAGES = 1;
     private int currentPage = PAGE_START;
 
     @Override
@@ -52,7 +54,7 @@ public class ProductListActivity extends AppCompatActivity
         setContentView(R.layout.activity_recycler);
 
 
-        progressBar = findViewById(R.id.progress_bar);
+        //progressBar = findViewById(R.id.progress_bar);
         initWidgets();
         presenter = new ProductListPresenter(this);
 
@@ -65,18 +67,11 @@ public class ProductListActivity extends AppCompatActivity
         adapter.setOnItemClickListener((position, v) -> {
             /*Toast toast = Toast.makeText(ProductListActivity.this, String.valueOf(position), Toast.LENGTH_LONG);
             toast.show();*/
-            System.out.println(position);
-            Intent intent = new Intent(ProductListActivity.this, ProductActivity.class);
-            intent.putExtra("name",products.get(position).getName());
-            intent.putExtra("price",String.valueOf(products.get(position).getPrice()) );
-            intent.putExtra("description",products.get(position).getDescription());
-            intent.putExtra("link",products.get(position).getLink());
-            intent.putExtra("number",String.valueOf(products.get(position).getNumber()));
-            startActivity(intent);
+            bind(position);
+
         });
-
+        presenter.defaultLoadProducts();
         rv.addOnScrollListener(new PaginationScrollListener(manager) {
-
             @Override
             public void loadMoreItems() {
                 isLoading = true;
@@ -84,7 +79,8 @@ public class ProductListActivity extends AppCompatActivity
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        loadNextPage();
+
+                        presenter.defaultLoadProducts();
                     }
                 }, 1000);
             }
@@ -103,25 +99,31 @@ public class ProductListActivity extends AppCompatActivity
                 return isLoading;
             }
         });
+/*
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadFirstPage();
+                //loadFirstPage(products);
+                presenter.defaultLoadProducts();
             }
-        }, 1000);
+        }, 1000);*/
+
     }
 
-    private void loadFirstPage() {
-        List<Product> movies = Product.Companion.createProducts(adapter.getItemCount());
-        progressBar.setVisibility(View.GONE);
-        adapter.addAll(movies);
+    private void loadFirstPage(List<Product> products) {
+        //List<Product> movies = Product.Companion.createProducts(adapter.getItemCount());
+       // progressBar.setVisibility(View.GONE);
+        this.products = (ArrayList<Product>) products;
+        adapter.addAll(products);
 
         if (currentPage <= TOTAL_PAGES)
             adapter.addLoadingFooter();
         else isLastPage = true;
     }
-    private void loadNextPage(){
-        List<Product> products = Product.Companion.createProducts(adapter.getItemCount());
+    @Override
+    public void loadNextPage(ArrayList<Product> products){
+        //List<Product> products = Product.Companion.createProducts(adapter.getItemCount());
+        this.products = (ArrayList<Product>) products;
         adapter.removeLoadingFooter();
         isLoading = false;
         adapter.addAll(products);
@@ -152,14 +154,21 @@ public class ProductListActivity extends AppCompatActivity
         product.setPrice(99999.9);
         product.setName("Кот с ноутбуком");
         product.setDescription("Очень хороший кот, который пишет отменный код");
-        product.setLink("https://sun9-8.userapi.com/c635104/v635104289/24d73/NpaOvn9JMUE.jpg");
+       // product.setLink("https://sun9-8.userapi.com/c635104/v635104289/24d73/NpaOvn9JMUE.jpg");
         product.setNumber(10);
         products.add(product);
     }
+
     @Override
-    public void showItems(@NotNull List<Product> items) {
-        ProductListAdapter adapter = new ProductListAdapter(products,this);
+    public void showItems(@NotNull ArrayList<Product> items) {
+        this.products = items;
+        adapter = new ProductListAdapter(products,this);
+        Log.d("ProductListActivity","items"+items.toString());
         rv.setAdapter(adapter);
+        adapter.setOnItemClickListener(((position, v) -> {
+            bind(position);
+        }));
+
     }
 
     @Override
@@ -168,6 +177,9 @@ public class ProductListActivity extends AppCompatActivity
             case (android.R.id.home):
                 this.finish();
                 return true;
+            case(R.id.cart):
+                Intent intent = new Intent(this, CartActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -198,5 +210,14 @@ public class ProductListActivity extends AppCompatActivity
         return true;
     }
 
-
+    private void bind(int position){
+        System.out.println(position);
+        Intent intent = new Intent(ProductListActivity.this, ProductActivity.class);
+        intent.putExtra("name",products.get(position).getName());
+        intent.putExtra("price",String.valueOf(products.get(position).getPrice()) );
+        intent.putExtra("description",products.get(position).getDescription());
+        //intent.putExtra("link",products.get(position).getLink());
+        intent.putExtra("number",String.valueOf(products.get(position).getNumber()));
+        startActivity(intent);
+    }
 }

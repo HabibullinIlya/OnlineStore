@@ -6,6 +6,7 @@ import retrofit2.Response
 
 import xyz.ilyaxabibullin.onlinestore.App
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
+import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.ProductResponse
 import xyz.ilyaxabibullin.onlinestore.network.ProductApi
 
 class AddProductPresenter(var view:AddProductContract.View):AddProductContract.Presenter{
@@ -28,13 +29,13 @@ class AddProductPresenter(var view:AddProductContract.View):AddProductContract.P
                 description,
                 amount,
                 price,
-                category).enqueue(object : Callback<Product>{
+                category).enqueue(object : Callback<ProductResponse>{
 
-            override fun onFailure(call: Call<Product>?, t: Throwable?) {
+            override fun onFailure(call: Call<ProductResponse>?, t: Throwable?) {
                 view.showFailedNetworkMessage()
             }
 
-            override fun onResponse(call: Call<Product>?, response: Response<Product>?) {
+            override fun onResponse(call: Call<ProductResponse>?, response: Response<ProductResponse>?) {
                 TODO("not implemented") //парсим json, кладем в бд, открыве
             }
 
