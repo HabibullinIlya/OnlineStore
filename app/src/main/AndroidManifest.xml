@@ -31,7 +31,8 @@
         <activity android:name=".view.product_list.ProductListActivity" />
         <activity android:name=".view.shop.create_shop.CreateShopActivity" />
         <activity android:name=".view.login.LoginActivity" />
-        <activity android:name=".CreateProductActivtity"></activity>
+        <activity android:name=".CreateProductActivtity" />
+        <activity android:name=".OrderActivity"></activity>
     </application>
 
 </manifest>

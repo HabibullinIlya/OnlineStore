@@ -1,6 +1,7 @@
 package xyz.ilyaxabibullin.onlinestore.view.product_list;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
@@ -18,35 +21,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.ilyaxabibullin.onlinestore.R;
+import xyz.ilyaxabibullin.onlinestore.base.PaginationScrollListener;
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product;
 import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity;
 
 public class ProductListActivity extends AppCompatActivity
     implements ProductListContract.View{
 
+    private static final String TAG = "ProductListActivity";
+
     ArrayList<Product> products;
     Toolbar mActionToolbar;
 
     ProductListContract.Presenter presenter;
+
     RecyclerView rv;
+    ProductListAdapter adapter;
+    LinearLayoutManager manager;
+    ProgressBar progressBar;
+
+    private static final int PAGE_START = 0;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int TOTAL_PAGES = 3;
+    private int currentPage = PAGE_START;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
-        presenter = new ProductListPresenter(this);
+
+        progressBar = findViewById(R.id.progress_bar);
         initWidgets();
+        presenter = new ProductListPresenter(this);
 
         products = new ArrayList<>();
-        fakeData();
+        //fakeData();
 
-        ProductListAdapter adapter = new ProductListAdapter(products);
+        adapter = new ProductListAdapter(products,this);
         rv.setAdapter(adapter);
 
         adapter.setOnItemClickListener((position, v) -> {
-            Toast toast = Toast.makeText(ProductListActivity.this, String.valueOf(position), Toast.LENGTH_LONG);
-            toast.show();
+            /*Toast toast = Toast.makeText(ProductListActivity.this, String.valueOf(position), Toast.LENGTH_LONG);
+            toast.show();*/
             System.out.println(position);
             Intent intent = new Intent(ProductListActivity.this, ProductActivity.class);
             intent.putExtra("name",products.get(position).getName());
@@ -57,6 +75,76 @@ public class ProductListActivity extends AppCompatActivity
             startActivity(intent);
         });
 
+        rv.addOnScrollListener(new PaginationScrollListener(manager) {
+
+            @Override
+            public void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1; //Increment page index to load the next one
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadNextPage();
+                    }
+                }, 1000);
+            }
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadFirstPage();
+            }
+        }, 1000);
+    }
+
+    private void loadFirstPage() {
+        List<Product> movies = Product.Companion.createProducts(adapter.getItemCount());
+        progressBar.setVisibility(View.GONE);
+        adapter.addAll(movies);
+
+        if (currentPage <= TOTAL_PAGES)
+            adapter.addLoadingFooter();
+        else isLastPage = true;
+    }
+    private void loadNextPage(){
+        List<Product> products = Product.Companion.createProducts(adapter.getItemCount());
+        adapter.removeLoadingFooter();
+        isLoading = false;
+        adapter.addAll(products);
+        if(currentPage !=TOTAL_PAGES)
+            adapter.addLoadingFooter();
+        else
+            isLastPage = true;
+    }
+
+    private void initWidgets(){
+        System.out.println("kek");
+        mActionToolbar = findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(mActionToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+
+        rv = findViewById(R.id.rv);
+
+        manager = new LinearLayoutManager(this);
+        rv.setLayoutManager(manager);
     }
 
     private void fakeData() {
@@ -70,7 +158,7 @@ public class ProductListActivity extends AppCompatActivity
     }
     @Override
     public void showItems(@NotNull List<Product> items) {
-        ProductListAdapter adapter = new ProductListAdapter(products);
+        ProductListAdapter adapter = new ProductListAdapter(products,this);
         rv.setAdapter(adapter);
     }
 
@@ -84,20 +172,7 @@ public class ProductListActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-    private void initWidgets(){
 
-        mActionToolbar = findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(mActionToolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-
-        rv = findViewById(R.id.rv);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        rv.setLayoutManager(manager);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
