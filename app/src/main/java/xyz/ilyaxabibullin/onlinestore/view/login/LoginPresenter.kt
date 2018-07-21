@@ -10,7 +10,7 @@ import xyz.ilyaxabibullin.onlinestore.network.UserApi
 
 class LoginPresenter : LoginContract.Presenter {
 
-    val TAG = "LoginPresenter"
+    val  TAG = "LoginPresenter"
 
     val view: LoginContract.View
 
@@ -21,6 +21,8 @@ class LoginPresenter : LoginContract.Presenter {
     override fun authorisation(login:String, password:String) {
         App.retrofit.create(UserApi::class.java).auth(login,password).enqueue(object: Callback<AuthResponse> {
             override fun onFailure(call: Call<AuthResponse>?, t: Throwable?) {
+                t!!.printStackTrace()
+                Log.d(TAG,"onFailure")
                 view.showFailedNetworkMessage()
             }
 

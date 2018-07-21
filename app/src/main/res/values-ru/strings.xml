@@ -25,5 +25,6 @@
     <string name="amount">Количество</string>
     <string name="add_product">Добавить товар</string>
     <string name="category">Категория</string>
+    <string name="profile">profile</string>
 
 </resources>

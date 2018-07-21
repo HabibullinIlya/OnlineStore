@@ -27,4 +27,5 @@
     <string name="amount">Amount</string>
     <string name="add_product">Add product</string>
     <string name="category">Category</string>
+    <string name="profile">profile</string>
 </resources>

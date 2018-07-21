@@ -2,6 +2,10 @@ package xyz.ilyaxabibullin.onlinestore.view.product_list;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +30,7 @@ import xyz.ilyaxabibullin.onlinestore.base.PaginationScrollListener;
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product;
 import xyz.ilyaxabibullin.onlinestore.view.cart.CartActivity;
 import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity;
+import xyz.ilyaxabibullin.onlinestore.view.userinfo.UserInfoActivity;
 
 public class ProductListActivity extends AppCompatActivity
     implements ProductListContract.View{
@@ -41,12 +46,15 @@ public class ProductListActivity extends AppCompatActivity
     ProductListAdapter adapter;
     LinearLayoutManager manager;
     ProgressBar progressBar;
+    private DrawerLayout mDrawerLayout;
+
 
     private static final int PAGE_START = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES = 1;
     private int currentPage = PAGE_START;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,32 @@ public class ProductListActivity extends AppCompatActivity
 
         //progressBar = findViewById(R.id.progress_bar);
         initWidgets();
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+                        switch (menuItem.getItemId()){
+                            case (R.id.nav_profile):
+                                Intent intent = new Intent(ProductListActivity.this, UserInfoActivity.class);
+                                startActivity(intent);
+
+                        }
+
+                        return true;
+                    }
+                });
+
         presenter = new ProductListPresenter(this);
 
         products = new ArrayList<>();
@@ -138,8 +172,12 @@ public class ProductListActivity extends AppCompatActivity
         mActionToolbar = findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mActionToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
 
@@ -175,7 +213,8 @@ public class ProductListActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case (android.R.id.home):
-                this.finish();
+                //this.finish();
+                mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case(R.id.cart):
                 Intent intent = new Intent(this, CartActivity.class);
