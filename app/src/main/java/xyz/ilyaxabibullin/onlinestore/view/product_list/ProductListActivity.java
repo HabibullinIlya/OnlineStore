@@ -217,6 +217,7 @@ public class ProductListActivity extends AppCompatActivity
         intent.putExtra("price",String.valueOf(products.get(position).getPrice()) );
         intent.putExtra("description",products.get(position).getDescription());
         //intent.putExtra("link",products.get(position).getLink());
+        intent.putExtra("id",String.valueOf(products.get(position).getId()));
         intent.putExtra("number",String.valueOf(products.get(position).getNumber()));
         startActivity(intent);
     }
