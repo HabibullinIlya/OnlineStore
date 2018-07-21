@@ -26,5 +26,6 @@
     <string name="add_product">Добавить товар</string>
     <string name="category">Категория</string>
     <string name="profile">profile</string>
+    <string name="cart">cart</string>
 
 </resources>

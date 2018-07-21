@@ -77,16 +77,22 @@ public class ProductListActivity extends AppCompatActivity
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+
                         switch (menuItem.getItemId()){
                             case (R.id.nav_profile):
                                 Intent intent = new Intent(ProductListActivity.this, UserInfoActivity.class);
                                 startActivity(intent);
+                                return true;
+
+                            case(R.id.nav_cart):
+                                Intent intent2 = new Intent(ProductListActivity.this, CartActivity.class);
+                                startActivity(intent2);
+                                return true;
+                            default:
+                                return true;
 
                         }
 
-                        return true;
                     }
                 });
 
@@ -219,6 +225,7 @@ public class ProductListActivity extends AppCompatActivity
             case(R.id.cart):
                 Intent intent = new Intent(this, CartActivity.class);
                 startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
