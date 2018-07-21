@@ -27,5 +27,6 @@
     <string name="category">Категория</string>
     <string name="profile">profile</string>
     <string name="cart">cart</string>
+    <string name="order">order</string>
 
 </resources>

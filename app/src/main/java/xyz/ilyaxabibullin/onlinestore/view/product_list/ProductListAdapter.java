@@ -10,14 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 import xyz.ilyaxabibullin.onlinestore.R;
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product;
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.UserHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ItemHolder> {
 
 
     private static final int ITEM = 0;
@@ -31,7 +29,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private List<Product> products;
 
-    ProductListAdapter(List<Product> products, Context context) {
+    public ProductListAdapter(List<Product> products, Context context) {
         this.products = products;
         this.context = context;
     }
@@ -42,14 +40,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @NonNull
     @Override
-    public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
-        UserHolder userHolder = new UserHolder(v);
+        ItemHolder userHolder = new ItemHolder(v);
         return userHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserHolder holder, int i) {
+    public void onBindViewHolder(@NonNull ItemHolder holder, int i) {
         ImageView imageView =  holder.itemImage;
         holder.name.setText(products.get(i).getName());
         holder.price.setText(String.valueOf(products.get(i).getPrice()));
@@ -71,13 +69,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     }
 
-    public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CardView cv;
         ImageView itemImage;
         TextView name;
         TextView price;
 
-        public UserHolder(View itemView) {
+        public ItemHolder(View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.cv);
             name = itemView.findViewById(R.id.name_item);

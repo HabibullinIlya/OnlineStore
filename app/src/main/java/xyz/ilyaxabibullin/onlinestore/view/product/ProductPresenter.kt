@@ -2,7 +2,7 @@ package xyz.ilyaxabibullin.onlinestore.view.product
 
 class ProductPresenter(var view:ProductContract.View): ProductContract.Presenter{
     override fun btnBuyWasClicked(id: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.navigateToOrder()
     }
 
     override fun btnToCartWasClicked() {

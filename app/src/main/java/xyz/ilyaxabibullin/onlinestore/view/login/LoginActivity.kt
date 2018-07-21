@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import xyz.ilyaxabibullin.onlinestore.App
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
+import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductAction
 import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductListActivity
 
 import xyz.ilyaxabibullin.onlinestore.view.register.RegistrationActivity
@@ -54,6 +55,7 @@ class LoginActivity : BaseActivity(),LoginContract.View {
 
     override fun navigateToMyShop() {
         val intent = Intent(this, ProductListActivity::class.java)
+        intent.putExtra("action",ProductAction.DEFAULT.Action.toString())
         startActivity(intent)
         finish()
     }

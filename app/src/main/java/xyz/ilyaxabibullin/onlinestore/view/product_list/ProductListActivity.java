@@ -56,6 +56,8 @@ public class ProductListActivity extends AppCompatActivity
     private int currentPage = PAGE_START;
     NavigationView navigationView;
 
+    private int startAction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,35 +67,28 @@ public class ProductListActivity extends AppCompatActivity
         //progressBar = findViewById(R.id.progress_bar);
         initWidgets();
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-
-        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
+                menuItem -> {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    mDrawerLayout.closeDrawers();
 
+                    switch (menuItem.getItemId()){
+                        case (R.id.nav_profile):
+                            Intent intent = new Intent(ProductListActivity.this, UserInfoActivity.class);
+                            startActivity(intent);
+                            return true;
 
-                        switch (menuItem.getItemId()){
-                            case (R.id.nav_profile):
-                                Intent intent = new Intent(ProductListActivity.this, UserInfoActivity.class);
-                                startActivity(intent);
-                                return true;
-
-                            case(R.id.nav_cart):
-                                Intent intent2 = new Intent(ProductListActivity.this, CartActivity.class);
-                                startActivity(intent2);
-                                return true;
-                            default:
-                                return true;
-
-                        }
+                        case(R.id.nav_cart):
+                            Intent intent2 = new Intent(ProductListActivity.this, CartActivity.class);
+                            startActivity(intent2);
+                            return true;
+                        default:
+                            return true;
 
                     }
+
                 });
 
         presenter = new ProductListPresenter(this);
@@ -110,7 +105,8 @@ public class ProductListActivity extends AppCompatActivity
             bind(position);
 
         });
-        presenter.defaultLoadProducts();
+
+
         rv.addOnScrollListener(new PaginationScrollListener(manager) {
             @Override
             public void loadMoreItems() {
@@ -139,6 +135,10 @@ public class ProductListActivity extends AppCompatActivity
                 return isLoading;
             }
         });
+
+        //presenter.defaultLoadProducts();
+        int action = Integer.parseInt(getIntent().getStringExtra("action"));
+        presenter.activityStarted(action);
 /*
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -174,18 +174,17 @@ public class ProductListActivity extends AppCompatActivity
     }
 
     private void initWidgets(){
-        System.out.println("kek");
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         mActionToolbar = findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mActionToolbar);
+
+        navigationView = findViewById(R.id.nav_view);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
 
         rv = findViewById(R.id.rv);
 
@@ -193,15 +192,7 @@ public class ProductListActivity extends AppCompatActivity
         rv.setLayoutManager(manager);
     }
 
-    private void fakeData() {
-        Product product = new Product();
-        product.setPrice(99999.9);
-        product.setName("Кот с ноутбуком");
-        product.setDescription("Очень хороший кот, который пишет отменный код");
-       // product.setLink("https://sun9-8.userapi.com/c635104/v635104289/24d73/NpaOvn9JMUE.jpg");
-        product.setNumber(10);
-        products.add(product);
-    }
+
 
     @Override
     public void showItems(@NotNull ArrayList<Product> items) {
@@ -230,7 +221,6 @@ public class ProductListActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -266,5 +256,15 @@ public class ProductListActivity extends AppCompatActivity
         intent.putExtra("id",String.valueOf(products.get(position).getId()));
         intent.putExtra("number",String.valueOf(products.get(position).getNumber()));
         startActivity(intent);
+    }
+
+    private void fakeData() {
+        Product product = new Product();
+        product.setPrice(99999.9);
+        product.setName("Кот с ноутбуком");
+        product.setDescription("Очень хороший кот, который пишет отменный код");
+        // product.setLink("https://sun9-8.userapi.com/c635104/v635104289/24d73/NpaOvn9JMUE.jpg");
+        product.setNumber(10);
+        products.add(product);
     }
 }

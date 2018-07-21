@@ -2,6 +2,8 @@ package xyz.ilyaxabibullin.onlinestore.view.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_registration.*
@@ -19,10 +21,19 @@ class RegistrationActivity : BaseActivity(), RegistrationContract.View {
     private var passAgain = ""
 
 
+    private lateinit var mActionToolbar: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
         failed_register_data.visibility = View.GONE
+
+        mActionToolbar = findViewById(R.id.toolbar_actionbar)
+        setSupportActionBar(mActionToolbar)
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+
 
 
         registration_btn.setOnClickListener {
@@ -53,5 +64,15 @@ class RegistrationActivity : BaseActivity(), RegistrationContract.View {
     override fun registrationError() {
         val toast: Toast = Toast.makeText(this,"Ошибка при регистрации",Toast.LENGTH_SHORT)
         toast.show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                this.finish();
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

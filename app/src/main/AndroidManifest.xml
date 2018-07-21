@@ -27,15 +27,21 @@
         <activity
             android:name=".view.product.ProductActivity"
             android:label="ProductName" />
-        <activity android:name=".view.shop.ShopActivity" />
+        <activity android:name=".view.shop.ShopActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.product_list.ProductListActivity" />
-        <activity android:name=".view.shop.create_shop.CreateShopActivity" />
-        <activity android:name=".view.login.LoginActivity" />
-        <activity android:name=".view.addproduct.AddProductActivity" />
-        <activity android:name=".OrderActivity" />
+        <activity android:name=".view.shop.create_shop.CreateShopActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.addproduct.AddProductActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.order.OrderActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.cart.CartActivity"
             android:label="cart"></activity>
-        <activity android:name=".view.userinfo.UserInfoActivity"></activity>
+        <activity android:name=".view.userinfo.UserInfoActivity"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

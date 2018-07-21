@@ -11,6 +11,23 @@ import xyz.ilyaxabibullin.onlinestore.network.ProductApi
 
 class ProductListPresenter(var view: ProductListContract.View):ProductListContract.Presenter{
 
+    override fun activityStarted(action:Int) {
+        when (action) {
+            ProductAction.SHOP_PRODUCTS.Action->{
+                loadShopProducts()
+            }
+            ProductAction.DEFAULT.Action->{
+                defaultLoadProducts()
+            }
+        }
+    }
+
+    private fun loadShopProducts() {
+
+        var items = ArrayList<Product>()
+        view.showItems(items)
+    }
+
 
     val TAG = "ProductListPresenter"
 

@@ -9,6 +9,8 @@ interface ProductListContract {
         fun queryWasChanged(searchQuery: String)
         fun scrolledToEnd()
 
+        fun activityStarted(action:Int)
+
     }
 
     interface View {

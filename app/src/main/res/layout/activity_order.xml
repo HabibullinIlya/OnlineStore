@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderActivity">
+    tools:context=".view.order.OrderActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/toolbar"></include>
+
+    <TextView
+        android:id="@+id/name_product_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_actionbar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/product_name" />
+
+    <TextView
+        android:id="@+id/amount_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name_product_order"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/amount" />
+
+    <EditText
+        android:id="@+id/amount_edit_order"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/amount_order"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:inputType="number" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/order"
+        android:layout_below="@id/amount_edit_order"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/order"/>
+
+</RelativeLayout>

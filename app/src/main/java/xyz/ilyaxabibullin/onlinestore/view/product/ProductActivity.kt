@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_poduct.*
+import xyz.ilyaxabibullin.onlinestore.view.order.OrderActivity
 
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
@@ -35,12 +37,14 @@ class ProductActivity: BaseActivity(),ProductContract.View {
 
         mActionBarToolBar = findViewById(R.id.toolbar_actionbar)
         setSupportActionBar(mActionBarToolBar)
+
+
         initWidgets()
         loadFromIntent()
     }
 
     private fun loadFromIntent() {
-        var intent = getIntent()
+        var intent = this.intent
         nameTextView.text = intent.getStringExtra("name")
         priceTextView.text = intent.getStringExtra("price").toString()
         descriptionTextView.text = intent.getStringExtra("description")
@@ -69,6 +73,11 @@ class ProductActivity: BaseActivity(),ProductContract.View {
         to_shop.setOnClickListener{
             presenter.btnToShopWasClicked(shopId)
         }
+        buy_now_btn.setOnClickListener {
+            presenter.btnBuyWasClicked(1)
+        }
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
 
     }
 
@@ -85,7 +94,18 @@ class ProductActivity: BaseActivity(),ProductContract.View {
     }
 
     override fun navigateToOrder() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(this, OrderActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                this.finish();
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }
