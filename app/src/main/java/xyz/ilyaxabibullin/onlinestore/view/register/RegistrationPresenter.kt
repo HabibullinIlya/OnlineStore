@@ -17,8 +17,8 @@ class RegistrationPresenter:RegistrationContract.Presenter {
     }
 
     override fun register(email: String, fName: String, lName: String, pass: String) {
-        App.retrofit.create(RegisterApi::class.java).register(email, fName,lName,pass)
-                .enqueue(object: Callback<UserResponce> {
+        /*App.retrofit.create(RegisterApi::class.java).register(email, fName,lName,pass)
+                .enqueue(object: Callback<UserResponse> {
                     override fun onFailure(call: Call<UserResponce>?, t: Throwable?) {
                         t!!.printStackTrace()
                     }
@@ -34,6 +34,7 @@ class RegistrationPresenter:RegistrationContract.Presenter {
                         }
                     }
 
-                })
+                })*/
+        view.navigate()
     }
 }

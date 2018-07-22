@@ -2,6 +2,7 @@ package xyz.ilyaxabibullin.onlinestore.view.product_list;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -28,6 +29,7 @@ import java.util.List;
 import xyz.ilyaxabibullin.onlinestore.R;
 import xyz.ilyaxabibullin.onlinestore.base.PaginationScrollListener;
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product;
+import xyz.ilyaxabibullin.onlinestore.view.addproduct.AddProductActivity;
 import xyz.ilyaxabibullin.onlinestore.view.cart.CartActivity;
 import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity;
 import xyz.ilyaxabibullin.onlinestore.view.userinfo.UserInfoActivity;
@@ -36,6 +38,9 @@ public class ProductListActivity extends AppCompatActivity
     implements ProductListContract.View{
 
     private static final String TAG = "ProductListActivity";
+
+
+    boolean itMyProducts = false;
 
     ArrayList<Product> products;
     Toolbar mActionToolbar;
@@ -46,6 +51,8 @@ public class ProductListActivity extends AppCompatActivity
     ProductListAdapter adapter;
     LinearLayoutManager manager;
     ProgressBar progressBar;
+    FloatingActionButton addProduct;
+
     private DrawerLayout mDrawerLayout;
 
 
@@ -63,10 +70,12 @@ public class ProductListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
+        itMyProducts = false;
+
 
         //progressBar = findViewById(R.id.progress_bar);
         initWidgets();
-
+        presenter = new ProductListPresenter(this);
         navigationView.setNavigationItemSelectedListener(
                 menuItem -> {
                     // set item as selected to persist highlight
@@ -88,10 +97,9 @@ public class ProductListActivity extends AppCompatActivity
                             return true;
 
                     }
-
                 });
 
-        presenter = new ProductListPresenter(this);
+
 
         products = new ArrayList<>();
         //fakeData();
@@ -138,6 +146,16 @@ public class ProductListActivity extends AppCompatActivity
 
         //presenter.defaultLoadProducts();
         int action = Integer.parseInt(getIntent().getStringExtra("action"));
+
+        if(action == ProductAction.SHOP_PRODUCTS.getAction())
+            itMyProducts = true;
+
+        if(itMyProducts){
+            addProduct.setVisibility(View.VISIBLE);
+        }else{
+            addProduct.setVisibility(View.GONE);
+        }
+
         presenter.activityStarted(action);
 /*
         new Handler().postDelayed(new Runnable() {
@@ -190,6 +208,13 @@ public class ProductListActivity extends AppCompatActivity
 
         manager = new LinearLayoutManager(this);
         rv.setLayoutManager(manager);
+        addProduct = findViewById(R.id.add_prod);
+        addProduct.setVisibility(View.GONE);
+
+        addProduct.setOnClickListener(v->{
+            navigateToAddProduct();
+        });
+
     }
 
 
@@ -255,6 +280,10 @@ public class ProductListActivity extends AppCompatActivity
         //intent.putExtra("link",products.get(position).getLink());
         intent.putExtra("id",String.valueOf(products.get(position).getId()));
         intent.putExtra("number",String.valueOf(products.get(position).getNumber()));
+        startActivity(intent);
+    }
+    private void navigateToAddProduct(){
+        Intent intent = new Intent(this, AddProductActivity.class);
         startActivity(intent);
     }
 

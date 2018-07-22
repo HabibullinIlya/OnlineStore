@@ -14,6 +14,7 @@ interface ProductListContract {
     }
 
     interface View {
+
         fun loadNextPage(products: ArrayList<Product>)
         fun showItems(items: ArrayList<Product>);
     }
