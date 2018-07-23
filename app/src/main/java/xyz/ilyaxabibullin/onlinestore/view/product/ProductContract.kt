@@ -2,7 +2,8 @@ package xyz.ilyaxabibullin.onlinestore.view.product
 
 interface ProductContract {
     interface View{
-        fun addToCart()
+
+        fun showProduct(name:String,description:String,amount:Int,price:Double)
         fun navigateToShop()
         fun navigateToOrder()
     }
@@ -11,8 +12,11 @@ interface ProductContract {
 
     }
     interface Presenter{
+        fun activityWasStarted(id:Int)
+
         fun btnBuyWasClicked(id:Int)
         fun btnToCartWasClicked()
         fun btnToShopWasClicked(id:Int)
+
     }
 }

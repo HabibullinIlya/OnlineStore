@@ -1,6 +1,7 @@
 package xyz.ilyaxabibullin.onlinestore.view.product_list;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -8,18 +9,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +33,7 @@ import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity;
 import xyz.ilyaxabibullin.onlinestore.view.userinfo.UserInfoActivity;
 
 public class ProductListActivity extends AppCompatActivity
-    implements ProductListContract.View{
+        implements ProductListContract.View {
 
     private static final String TAG = "ProductListActivity";
 
@@ -69,9 +67,12 @@ public class ProductListActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
+        Log.d(TAG, "onCreate start");
 
+        Log.d(TAG, "it my products" + String.valueOf(itMyProducts));
         itMyProducts = false;
 
+        Log.d(TAG, "it my products" + String.valueOf(itMyProducts));
 
         //progressBar = findViewById(R.id.progress_bar);
         initWidgets();
@@ -83,13 +84,13 @@ public class ProductListActivity extends AppCompatActivity
                     // close drawer when item is tapped
                     mDrawerLayout.closeDrawers();
 
-                    switch (menuItem.getItemId()){
+                    switch (menuItem.getItemId()) {
                         case (R.id.nav_profile):
                             Intent intent = new Intent(ProductListActivity.this, UserInfoActivity.class);
                             startActivity(intent);
                             return true;
 
-                        case(R.id.nav_cart):
+                        case (R.id.nav_cart):
                             Intent intent2 = new Intent(ProductListActivity.this, CartActivity.class);
                             startActivity(intent2);
                             return true;
@@ -100,11 +101,10 @@ public class ProductListActivity extends AppCompatActivity
                 });
 
 
-
         products = new ArrayList<>();
         //fakeData();
 
-        adapter = new ProductListAdapter(products,this);
+        adapter = new ProductListAdapter(products, this);
         rv.setAdapter(adapter);
 
         adapter.setOnItemClickListener((position, v) -> {
@@ -128,6 +128,7 @@ public class ProductListActivity extends AppCompatActivity
                     }
                 }, 1000);
             }
+
             @Override
             public int getTotalPageCount() {
                 return TOTAL_PAGES;
@@ -147,12 +148,17 @@ public class ProductListActivity extends AppCompatActivity
         //presenter.defaultLoadProducts();
         int action = Integer.parseInt(getIntent().getStringExtra("action"));
 
-        if(action == ProductAction.SHOP_PRODUCTS.getAction())
-            itMyProducts = true;
+        Log.d(TAG, "action "+ String.valueOf(action));
 
-        if(itMyProducts){
+        if (action == ProductAction.SHOP_PRODUCTS.getAction()) {
+            Log.d(TAG, "it my products" + String.valueOf(itMyProducts));
+            itMyProducts = true;
+            Log.d(TAG, "it my products" + String.valueOf(itMyProducts));
+        }
+
+        if (itMyProducts) {
             addProduct.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             addProduct.setVisibility(View.GONE);
         }
 
@@ -170,7 +176,7 @@ public class ProductListActivity extends AppCompatActivity
 
     private void loadFirstPage(List<Product> products) {
         //List<Product> movies = Product.Companion.createProducts(adapter.getItemCount());
-       // progressBar.setVisibility(View.GONE);
+        // progressBar.setVisibility(View.GONE);
         this.products = (ArrayList<Product>) products;
         adapter.addAll(products);
 
@@ -178,20 +184,21 @@ public class ProductListActivity extends AppCompatActivity
             adapter.addLoadingFooter();
         else isLastPage = true;
     }
+
     @Override
-    public void loadNextPage(ArrayList<Product> products){
+    public void loadNextPage(ArrayList<Product> products) {
         //List<Product> products = Product.Companion.createProducts(adapter.getItemCount());
         this.products = (ArrayList<Product>) products;
         adapter.removeLoadingFooter();
         isLoading = false;
         adapter.addAll(products);
-        if(currentPage !=TOTAL_PAGES)
+        if (currentPage != TOTAL_PAGES)
             adapter.addLoadingFooter();
         else
             isLastPage = true;
     }
 
-    private void initWidgets(){
+    private void initWidgets() {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mActionToolbar = findViewById(R.id.toolbar_actionbar);
@@ -211,19 +218,18 @@ public class ProductListActivity extends AppCompatActivity
         addProduct = findViewById(R.id.add_prod);
         addProduct.setVisibility(View.GONE);
 
-        addProduct.setOnClickListener(v->{
+        addProduct.setOnClickListener(v -> {
             navigateToAddProduct();
         });
 
     }
 
 
-
     @Override
     public void showItems(@NotNull ArrayList<Product> items) {
         this.products = items;
-        adapter = new ProductListAdapter(products,this);
-        Log.d("ProductListActivity","items"+items.toString());
+        adapter = new ProductListAdapter(products, this);
+        Log.d("ProductListActivity", "items" + items.toString());
         rv.setAdapter(adapter);
         adapter.setOnItemClickListener(((position, v) -> {
             bind(position);
@@ -233,12 +239,12 @@ public class ProductListActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case (android.R.id.home):
                 //this.finish();
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            case(R.id.cart):
+            case (R.id.cart):
                 Intent intent = new Intent(this, CartActivity.class);
                 startActivity(intent);
                 return true;
@@ -271,18 +277,16 @@ public class ProductListActivity extends AppCompatActivity
         return true;
     }
 
-    private void bind(int position){
+    private void bind(int position) {
         System.out.println(position);
         Intent intent = new Intent(ProductListActivity.this, ProductActivity.class);
-        intent.putExtra("name",products.get(position).getName());
-        intent.putExtra("price",String.valueOf(products.get(position).getPrice()) );
-        intent.putExtra("description",products.get(position).getDescription());
-        //intent.putExtra("link",products.get(position).getLink());
-        intent.putExtra("id",String.valueOf(products.get(position).getId()));
-        intent.putExtra("number",String.valueOf(products.get(position).getNumber()));
+
+        intent.putExtra("product_id", String.valueOf(products.get(position).getId()));
+        Log.d(TAG,String.valueOf(products.get(position).getId()));
         startActivity(intent);
     }
-    private void navigateToAddProduct(){
+
+    private void navigateToAddProduct() {
         Intent intent = new Intent(this, AddProductActivity.class);
         startActivity(intent);
     }

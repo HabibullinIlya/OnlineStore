@@ -56,13 +56,17 @@ class ProductListPresenter(var view: ProductListContract.View):ProductListContra
                         }
 
                         override fun onResponse(call: Call<ProductResponse>?, response: Response<ProductResponse>?) {
-                            var product:Product = response!!
-                                    .body()!!
-                                    .product!!
-                            Log.d(TAG,"price = ${product.price}")
-                            Log.d(TAG,resultSet.toString())
-                            resultSet.add(product)
-                            view.showItems(resultSet)
+                            if(response!!.isSuccessful){
+                                val product:Product = response!!
+                                        .body()!!
+                                        .product!!
+
+                                Log.d(TAG,"id = ${product.id}")
+                                Log.d(TAG,resultSet.toString())
+                                resultSet.add(product)
+                                view.showItems(resultSet)
+                            }
+
 
                         }
                     })

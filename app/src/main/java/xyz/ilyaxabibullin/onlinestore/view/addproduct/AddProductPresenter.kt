@@ -28,8 +28,7 @@ class AddProductPresenter(var view:AddProductContract.View):AddProductContract.P
                 name,
                 description,
                 amount,
-                price,
-                category).enqueue(object : Callback<ProductResponse>{
+                price).enqueue(object : Callback<ProductResponse>{
 
             override fun onFailure(call: Call<ProductResponse>?, t: Throwable?) {
                 view.showFailedNetworkMessage()

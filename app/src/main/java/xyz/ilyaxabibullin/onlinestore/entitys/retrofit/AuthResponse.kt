@@ -6,6 +6,11 @@ import com.google.gson.annotations.SerializedName
 class AuthResponse:Response(){
     @SerializedName("access_token")
     @Expose
-    var token: String = ""
+    var token = ""
+
+
+    @SerializedName("user")
+    @Expose
+    var user: User? = null
 
 }

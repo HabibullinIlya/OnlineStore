@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
 
-class Cart:BaseActivity() {
+class Cart {
     @SerializedName("id")
     @Expose
 

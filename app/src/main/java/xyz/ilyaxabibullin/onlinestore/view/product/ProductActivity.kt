@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_poduct.*
 import xyz.ilyaxabibullin.onlinestore.view.order.OrderActivity
 
@@ -17,6 +16,7 @@ import xyz.ilyaxabibullin.onlinestore.view.cart.CartActivity
 import xyz.ilyaxabibullin.onlinestore.view.shop.ShopActivity
 
 class ProductActivity: BaseActivity(),ProductContract.View {
+
 
     private var presenter:ProductContract.Presenter = ProductPresenter(this)
 
@@ -29,7 +29,7 @@ class ProductActivity: BaseActivity(),ProductContract.View {
     private lateinit var numberTextView: TextView
     private lateinit var descriptionTextView: TextView
 
-    private var shopId: Int = 0
+    private var productId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,20 +41,14 @@ class ProductActivity: BaseActivity(),ProductContract.View {
 
         initWidgets()
         loadFromIntent()
+        println("productId = $productId")
+        presenter.activityWasStarted(productId)
+
     }
 
     private fun loadFromIntent() {
         var intent = this.intent
-        nameTextView.text = intent.getStringExtra("name")
-        priceTextView.text = intent.getStringExtra("price").toString()
-        descriptionTextView.text = intent.getStringExtra("description")
-        var imageLink = intent.getStringExtra("link")
-        Glide.with(this)
-                .load(imageLink)
-                .into(productImage)
-
-        numberTextView.text = intent.getStringExtra("number")
-        shopId = Integer.parseInt(intent.getStringExtra("id"))
+        productId = Integer.parseInt(intent.getStringExtra("product_id"))
 
     }
 
@@ -71,20 +65,25 @@ class ProductActivity: BaseActivity(),ProductContract.View {
         descriptionTextView = findViewById(R.id.description_product)
 
         to_shop.setOnClickListener{
-            presenter.btnToShopWasClicked(shopId)
+            presenter.btnToShopWasClicked(productId)
         }
         buy_now_btn.setOnClickListener {
             presenter.btnBuyWasClicked(1)
+        }
+        to_basket_btn.setOnClickListener{
+            presenter.btnToCartWasClicked()
         }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
     }
 
-    override fun addToCart() {
-        val intent = Intent(this, CartActivity::class.java)
-        //intent.putExtra("id",id)
-        startActivity(intent)
+
+    override fun showProduct(name: String, description: String, amount: Int, price: Double) {
+        name_product.text = name
+        price_product.text = price.toString()
+        number_of_product.text = amount.toString()
+        description_product.text = amount.toString()
     }
 
     override fun navigateToShop() {
@@ -103,6 +102,12 @@ class ProductActivity: BaseActivity(),ProductContract.View {
             android.R.id.home -> {
                 this.finish();
                 true
+            }
+            R.id.cart->{
+                val intent = Intent(this, CartActivity::class.java)
+                //intent.putExtra("id",id)
+                startActivity(intent)
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }

@@ -3,14 +3,20 @@ package xyz.ilyaxabibullin.onlinestore.view.cart
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import kotlinx.android.synthetic.main.activity_recycler.*
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
+import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity
+import xyz.ilyaxabibullin.onlinestore.view.product_list.OnItemClickListener
 import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductListAdapter
 
 class CartActivity : BaseActivity(),CartContract.View {
@@ -20,6 +26,7 @@ class CartActivity : BaseActivity(),CartContract.View {
     private lateinit var adapter: ProductListAdapter
     private lateinit var manager: LinearLayoutManager
 
+
     private lateinit var mActionToolbar : Toolbar
 
     lateinit var products: ArrayList<Product>
@@ -28,8 +35,12 @@ class CartActivity : BaseActivity(),CartContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler)
 
+        add_prod.visibility = View.GONE
+
         mActionToolbar = findViewById(R.id.toolbar_actionbar)
         setSupportActionBar(mActionToolbar)
+
+
 
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -41,14 +52,18 @@ class CartActivity : BaseActivity(),CartContract.View {
         manager = LinearLayoutManager(this)
         rv.layoutManager = manager
 
-        products = ArrayList<Product>()
+        products = ArrayList()
         fakeData();
 
         adapter = ProductListAdapter(products,this)
         rv.adapter = adapter
 
+        adapter.setOnItemClickListener(object: OnItemClickListener{
+            override fun onItemClick(position: Int, v: View) {
+               bind(position)
+            }
 
-
+        })
     }
 
     override fun showItem(item: List<Product>) {
@@ -57,6 +72,16 @@ class CartActivity : BaseActivity(),CartContract.View {
         rv.adapter = adapter
 
         //TODO("")//переход к оформлению заказа
+    }
+
+    private fun bind(position: Int) {
+        println(position)
+        val intent = Intent(this, ProductActivity::class.java)
+
+        intent.putExtra("product_id", products[position].id.toString())
+        Log.d("CartActivity", products[position].id.toString())
+
+        startActivity(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -71,6 +96,7 @@ class CartActivity : BaseActivity(),CartContract.View {
 
     private fun fakeData() {
         val product = Product()
+        product.id = 1
         product.price = 99999.9
         product.name = "Кот с ноутбуком"
         product.description = "Очень хороший кот, который пишет отменный код"

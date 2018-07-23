@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName
 
 
 
-class UserResponce{
+class UserResponse{
     @SerializedName("error")
     @Expose
     var error: Boolean? = null
 
     @SerializedName("user")
     @Expose
-    var user: UserResponce? = null
+    var user: User? = null
 
 
 

@@ -32,9 +32,6 @@ class ShopActivity: BaseActivity(){
             startActivity(intent)
 
         }
-
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

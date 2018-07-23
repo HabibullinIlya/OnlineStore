@@ -7,6 +7,6 @@ interface CartContract{
         fun showItem(item: List<Product>)
     }
     interface Presenter{
-        fun activityStarted()
+        fun activityWasStarted()
     }
 }
