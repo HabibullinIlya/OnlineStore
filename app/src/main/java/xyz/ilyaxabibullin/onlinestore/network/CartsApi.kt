@@ -5,7 +5,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
-import xyz.ilyaxabibullin.onlinestore.entitys.CartResponse
+import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.CartResponse
 
 interface CartsApi{
     @POST("/carts")

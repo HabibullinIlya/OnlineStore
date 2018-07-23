@@ -1,5 +1,10 @@
 package xyz.ilyaxabibullin.onlinestore.entitys.retrofit
 
-class Response{
-    var error = ""
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
+open class Response{
+    @SerializedName("error")
+    @Expose
+    var error = false
 }

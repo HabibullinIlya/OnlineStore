@@ -8,25 +8,32 @@ import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Response
 
 interface ProductApi {
     @POST("/products")
-    fun addProducts(@Query("token")token:String,
+    fun addProducts(@Query("access_token")token:String,
                     @Query("name") name: String,
                     @Query("description") description: String,
                     @Query("amount") amount:Int,
-                    @Query("price") price: Double,
-                    @Query("category")category: String): Call<ProductResponse>//но это не точно
+                    @Query("price") price: Double):                     Call<ProductResponse>
+    //@Query("category")category: String
 
     @GET("/products")
-    fun getProducts(@Query("token") token:String,
+    fun getProducts(@Query("access_token") token:String,
                     @Query("id")id:Int):Call<ProductResponse>
 
     @PUT("/products")
-    fun editProduct(@Query("token") token:String,
+    fun editProduct(@Query("access_token") token:String,
                     @Query("id")id:Int,
                     @Query("name") name: String,
                     @Query("price") price: Double,
-                    @Query("description") description: String):Call<ProductResponse>//и это тоже
+                    @Query("description") description: String):         Call<ProductResponse>
 
     @DELETE("/products")
-    fun deleteProduct(@Query("token") token:String,
-                      @Query("id") id: Int)//тоже хз пока
+    fun deleteProduct(@Query("access_token") token:String,
+                      @Query("id") id: Int):Call<ProductResponse>
+
+    @DELETE("/products/all?")
+    fun searchProducts(@Query("name")name:String,
+                       @Query("page")page:Int,
+                       @Query("limit") limit:Int):Call<List<Product>>//нет респонса пока
+
+
 }

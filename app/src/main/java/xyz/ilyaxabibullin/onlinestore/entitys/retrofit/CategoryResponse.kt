@@ -3,9 +3,9 @@ package xyz.ilyaxabibullin.onlinestore.entitys.retrofit
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class AuthResponse:Response(){
-    @SerializedName("access_token")
-    @Expose
-    var token: String = ""
 
+class CategoryResponse:Response(){
+    @SerializedName("category")
+    @Expose
+    var category:Category? = null
 }
