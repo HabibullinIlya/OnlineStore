@@ -270,7 +270,10 @@ public class ProductListActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextChange(String newText) {
                 System.out.println(newText);
-
+                presenter.searchProducts(newText);
+                if(newText.equals("")){
+                    presenter.defaultLoadProducts();
+                }
                 return true;
             }
         });

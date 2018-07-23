@@ -4,6 +4,7 @@ import retrofit2.Call
 import retrofit2.http.*
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.ProductResponse
+import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.ProductsListResponse
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Response
 
 interface ProductApi {
@@ -30,10 +31,10 @@ interface ProductApi {
     fun deleteProduct(@Query("access_token") token:String,
                       @Query("id") id: Int):Call<ProductResponse>
 
-    @DELETE("/products/all?")
+    @POST("/products/all")
     fun searchProducts(@Query("name")name:String,
                        @Query("page")page:Int,
-                       @Query("limit") limit:Int):Call<List<Product>>//нет респонса пока
+                       @Query("limit") limit:Int):                      Call<ProductsListResponse>
 
 
 }

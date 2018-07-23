@@ -7,6 +7,7 @@ import retrofit2.Response
 import xyz.ilyaxabibullin.onlinestore.App
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.ProductResponse
+import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.ProductsListResponse
 import xyz.ilyaxabibullin.onlinestore.network.ProductApi
 
 class ProductListPresenter(var view: ProductListContract.View):ProductListContract.Presenter{
@@ -84,7 +85,34 @@ class ProductListPresenter(var view: ProductListContract.View):ProductListContra
     }
 
     override fun searchProducts(searchQuery: String){//it maybe should be in model, but i am stupid man and it will here
-        TODO("not implemented") //изучить api для поиска
+        App.retrofit.create(ProductApi::class.java)
+                .searchProducts(searchQuery,1,15)
+                .enqueue(object: Callback<ProductsListResponse>{
+                    override fun onFailure(call: Call<ProductsListResponse>?, t: Throwable?) {
+                        Log.d(TAG,"onFailure searchProducts")
+                        t!!.printStackTrace()
+                    }
+
+                    override fun onResponse(call: Call<ProductsListResponse>?, response: Response<ProductsListResponse>?) {
+                        if(response!!.isSuccessful){
+                            if (!response!!
+                                            .body()!!
+                                            .error) {
+                                var resultSet = response.body()!!.products
+                                view.showItems(resultSet as ArrayList<Product>)
+                                Log.d(TAG, resultSet[1].name)
+                            } else {
+                                Log.d(TAG, "else")
+                            }
+                        }
+                        else{
+                            var product = Product()
+                            var resultSet = ArrayList<Product>()
+                            view.showItems(resultSet )
+                        }
+                    }
+
+                })
     }
 
     override fun scrolledToEnd() {
