@@ -8,16 +8,19 @@ import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.UserResponce
 
 interface UserApi {
     @POST("/users")
-    fun auth(@Query("username") login: String, @Query("password") password: String): Call<AuthResponse>
+    fun auth(@Query("username") login: String,
+             @Query("password") password: String):              Call<AuthResponse>
 
     @GET("/users")
-    fun getUser(@Query("id") id: Int): Call<UserResponce>
+    fun getUser(@Query("id") id: Int):                          Call<UserResponce>
 
     @PUT("/users")
-    fun updateUser(@Query("id") id: Int, @Query("token") token: String): Call<UserResponce>//не полное описание запроса
+    fun updateUser(@Query("id") id: Int,
+                   @Query("token") token: String):              Call<UserResponce>
 
     @DELETE("/users")
-    fun deleteUser(@Query("id") id: Int, @Query("access_token") token: String): Call<Response>
+    fun deleteUser(@Query("id") id: Int,
+                   @Query("access_token") token: String):       Call<Response>
 
 
 }

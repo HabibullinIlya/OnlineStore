@@ -9,11 +9,13 @@ import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.CartResponse
 
 interface CartsApi{
     @POST("/carts")
-    fun addToCart(@Query("token")token:String,@Query("id")id:Int): Call<CartResponse>
+    fun addToCart(@Query("token")token:String,
+                  @Query("id")id:Int): Call<CartResponse>
 
     @GET("/carts")
     fun getCartInfo(@Query("token")token:String):Call<CartResponse>
 
     @DELETE("/carts")
-    fun deleteFromCart(@Query("token")token: String, @Query("id")id:Int):Call<CartResponse>
+    fun deleteFromCart(@Query("token")token: String,
+                       @Query("id")id:Int):Call<CartResponse>
 }
