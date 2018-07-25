@@ -42,6 +42,8 @@
             android:label="cart"></activity>
         <activity android:name=".view.userinfo.UserInfoActivity"
             android:screenOrientation="portrait" ></activity>
+        <activity android:name=".view.order.list.OrdersListActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

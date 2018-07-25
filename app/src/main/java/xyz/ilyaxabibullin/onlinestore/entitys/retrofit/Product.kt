@@ -45,4 +45,8 @@ class Product{
             return products
         }
     }
+
+    override fun toString(): String {
+        return "[\"id\":$id, \"name\" : \"$name\", \"price\": \"$price\" "
+    }
 }

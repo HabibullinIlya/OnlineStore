@@ -1,15 +1,17 @@
 package xyz.ilyaxabibullin.onlinestore.view.addproduct
 
+import android.content.Context
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 import xyz.ilyaxabibullin.onlinestore.App
-import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.ProductResponse
 import xyz.ilyaxabibullin.onlinestore.network.ProductApi
 
-class AddProductPresenter(var view:AddProductContract.View):AddProductContract.Presenter{
+class AddProductPresenter(var view:AddProductContract.View,var context:Context):AddProductContract.Presenter{
+
+
     override fun buttonWasClicked(name: String,
                                   description: String,
                                   amount: Int,
@@ -31,7 +33,7 @@ class AddProductPresenter(var view:AddProductContract.View):AddProductContract.P
                 price).enqueue(object : Callback<ProductResponse>{
 
             override fun onFailure(call: Call<ProductResponse>?, t: Throwable?) {
-                view.showFailedNetworkMessage()
+
             }
 
             override fun onResponse(call: Call<ProductResponse>?, response: Response<ProductResponse>?) {
@@ -39,8 +41,6 @@ class AddProductPresenter(var view:AddProductContract.View):AddProductContract.P
             }
 
         })
-
-
 
     }
 

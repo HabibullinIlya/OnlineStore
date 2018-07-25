@@ -15,7 +15,7 @@ class Order {
 
     @SerializedName("date")
     @Expose
-    var date: Date? = null
+    var date: String? = null
 
     @SerializedName("is_paid")
     @Expose

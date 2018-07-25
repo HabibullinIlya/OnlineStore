@@ -1,5 +1,6 @@
 package xyz.ilyaxabibullin.onlinestore.view.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -13,11 +14,13 @@ import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductAction
 import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductListActivity
 
 import xyz.ilyaxabibullin.onlinestore.view.register.RegistrationActivity
-import xyz.ilyaxabibullin.onlinestore.view.shop.create_shop.CreateShopActivity
 
 class LoginActivity : BaseActivity(),LoginContract.View {
+    private val TAG = "LoginActivity"
 
-    private var presenter:LoginContract.Presenter = LoginPresenter(this)
+
+    private var presenter:LoginContract.Presenter = LoginPresenter(this,this)
+
 
     private lateinit var registerBtn: Button
     private lateinit var loginBtn: Button
@@ -28,6 +31,7 @@ class LoginActivity : BaseActivity(),LoginContract.View {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
 
         emailText = findViewById(R.id.login_field)
@@ -43,8 +47,11 @@ class LoginActivity : BaseActivity(),LoginContract.View {
             presenter.authorisation(emailText.text.toString(),passText.text.toString())
         }
     }
-    override fun showFailedMessage() {
-        val toast = Toast.makeText(this,R.string.fail_login,Toast.LENGTH_SHORT)
+
+    override fun showErrorMessage(context: Context, msg: String) {
+        var toast = Toast.makeText(this,msg,Toast.LENGTH_SHORT)
+        toast.show()
+
     }
 
     override fun navigateToRegActivity() {
@@ -59,6 +66,7 @@ class LoginActivity : BaseActivity(),LoginContract.View {
         startActivity(intent)
         finish()
     }
+
 
 
 

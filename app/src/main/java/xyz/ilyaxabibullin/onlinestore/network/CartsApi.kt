@@ -5,11 +5,12 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
+import xyz.ilyaxabibullin.onlinestore.App
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.CartResponse
 
 interface CartsApi{
     @POST("/carts")
-    fun addToCart(@Query("token")token:String,
+    fun addToCart(@Query("token")token:String = App.token,
                   @Query("id")id:Int): Call<CartResponse>
 
     @GET("/carts")

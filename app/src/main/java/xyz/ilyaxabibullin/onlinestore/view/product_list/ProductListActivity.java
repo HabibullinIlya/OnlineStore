@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import xyz.ilyaxabibullin.onlinestore.R;
@@ -29,6 +30,7 @@ import xyz.ilyaxabibullin.onlinestore.base.PaginationScrollListener;
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product;
 import xyz.ilyaxabibullin.onlinestore.view.addproduct.AddProductActivity;
 import xyz.ilyaxabibullin.onlinestore.view.cart.CartActivity;
+import xyz.ilyaxabibullin.onlinestore.view.order.list.OrdersListActivity;
 import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity;
 import xyz.ilyaxabibullin.onlinestore.view.userinfo.UserInfoActivity;
 
@@ -36,7 +38,6 @@ public class ProductListActivity extends AppCompatActivity
         implements ProductListContract.View {
 
     private static final String TAG = "ProductListActivity";
-
 
     boolean itMyProducts = false;
 
@@ -94,6 +95,10 @@ public class ProductListActivity extends AppCompatActivity
                             Intent intent2 = new Intent(ProductListActivity.this, CartActivity.class);
                             startActivity(intent2);
                             return true;
+                        case(R.id.nav_orders):
+                            Intent intent3 = new Intent(ProductListActivity.this, OrdersListActivity.class);
+                            startActivity(intent3);
+                            return true;
                         default:
                             return true;
 
@@ -148,7 +153,7 @@ public class ProductListActivity extends AppCompatActivity
         //presenter.defaultLoadProducts();
         int action = Integer.parseInt(getIntent().getStringExtra("action"));
 
-        Log.d(TAG, "action "+ String.valueOf(action));
+        Log.d(TAG, "action " + String.valueOf(action));
 
         if (action == ProductAction.SHOP_PRODUCTS.getAction()) {
             Log.d(TAG, "it my products" + String.valueOf(itMyProducts));
@@ -223,14 +228,23 @@ public class ProductListActivity extends AppCompatActivity
         });
 
     }
-
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG,"onPostResume");
+    }
 
     @Override
     public void showItems(@NotNull ArrayList<Product> items) {
         this.products = items;
+        Collections.sort(products,
+                (product, t1) -> product.getId() > t1.getId() ? 1 : (product.getId() < t1.getId()) ? -1 : 0);
+
+        Log.d(TAG,products.toString());
         adapter = new ProductListAdapter(products, this);
         Log.d("ProductListActivity", "items" + items.toString());
         rv.setAdapter(adapter);
+
+
         adapter.setOnItemClickListener(((position, v) -> {
             bind(position);
         }));
@@ -271,7 +285,7 @@ public class ProductListActivity extends AppCompatActivity
             public boolean onQueryTextChange(String newText) {
                 System.out.println(newText);
                 presenter.searchProducts(newText);
-                if(newText.equals("")){
+                if (newText.equals("")) {
                     presenter.defaultLoadProducts();
                 }
                 return true;
@@ -285,7 +299,7 @@ public class ProductListActivity extends AppCompatActivity
         Intent intent = new Intent(ProductListActivity.this, ProductActivity.class);
 
         intent.putExtra("product_id", String.valueOf(products.get(position).getId()));
-        Log.d(TAG,String.valueOf(products.get(position).getId()));
+        Log.d(TAG, String.valueOf(products.get(position).getId()));
         startActivity(intent);
     }
 

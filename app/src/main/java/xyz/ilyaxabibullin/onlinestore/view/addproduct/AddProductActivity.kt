@@ -10,7 +10,7 @@ import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
 
 class AddProductActivity : BaseActivity(),AddProductContract.View {
 
-    var presenter: AddProductContract.Presenter = AddProductPresenter(this)
+    var presenter: AddProductContract.Presenter = AddProductPresenter(this,this)
 
     override fun navigateToProduct() {
 

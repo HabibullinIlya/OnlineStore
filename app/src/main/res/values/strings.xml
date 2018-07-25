@@ -30,4 +30,6 @@
     <string name="profile">profile</string>
     <string name="cart">cart</string>
     <string name="order">order</string>
+    <string name="orders">orders</string>
+    <string name="pay">pay</string>
 </resources>

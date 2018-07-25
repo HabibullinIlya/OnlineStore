@@ -8,39 +8,41 @@
     <include layout="@layout/toolbar"></include>
 
     <TextView
-        android:id="@+id/name_product_order"
+        android:id="@+id/id_product_ord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_actionbar"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/product_name" />
+        android:text="number of order" />
 
     <TextView
-        android:id="@+id/amount_order"
+        android:id="@+id/id_product_ord_n"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name_product_order"
+        android:layout_below="@+id/id_product_ord"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/amount" />
-
-    <EditText
-        android:id="@+id/amount_edit_order"
-        android:layout_width="24dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/amount_order"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:inputType="number" />
+        android:text="number of order" />
 
     <Button
+        android:id="@+id/order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/order"
-        android:layout_below="@id/amount_edit_order"
+        android:layout_below="@id/id_product_ord_n"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/order"/>
+        android:text="@string/pay" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order"
+        android:layout_marginTop="8dp">
+
+
+    </android.support.v7.widget.RecyclerView>
+
 
 </RelativeLayout>

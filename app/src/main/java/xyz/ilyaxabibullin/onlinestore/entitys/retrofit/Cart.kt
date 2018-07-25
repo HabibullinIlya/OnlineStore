@@ -11,7 +11,7 @@ class Cart {
     var id = 0
     @SerializedName("user")
     @Expose
-    var user = ""
+    var user:User? = null
 
     @SerializedName("products")
     @Expose
