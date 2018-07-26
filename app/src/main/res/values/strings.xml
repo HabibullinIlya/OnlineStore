@@ -36,4 +36,5 @@
     <string name="payment">payment</string>
     <string name="status">status</string>
     <string name="shop">shop</string>
+    <string name="problem_with_network">problem with network</string>
 </resources>

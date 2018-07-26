@@ -30,6 +30,7 @@
             android:inputType="textMultiLine"
             android:hint="@string/description_of_shop" />
         <Button
+            android:id="@+id/create_shop_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/shop_description_edit"

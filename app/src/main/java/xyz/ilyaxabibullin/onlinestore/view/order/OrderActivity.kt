@@ -9,19 +9,24 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_order.*
 
 
 
 import xyz.ilyaxabibullin.onlinestore.R
+import xyz.ilyaxabibullin.onlinestore.R.layout.activity_order
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Order
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
+import xyz.ilyaxabibullin.onlinestore.view.order.list.OrdersListActivity
 import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity
 import xyz.ilyaxabibullin.onlinestore.view.product_list.OnItemClickListener
 import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductListAdapter
 
 class OrderActivity : BaseActivity(),OrderContract.View {
+
 
     private val TAG = javaClass.toString()
 
@@ -58,6 +63,13 @@ class OrderActivity : BaseActivity(),OrderContract.View {
 
         presenter.activityWasStarted(order.id)
 
+        val orderBtn: Button = findViewById(R.id.order)
+        orderBtn.setOnClickListener{
+            presenter.payBtnWasClicked(order.id)
+        }
+
+
+
     }
 
     override fun onResume() {
@@ -80,6 +92,14 @@ class OrderActivity : BaseActivity(),OrderContract.View {
         order_date_.text = order.date.toString()
         is_paid.text = order.isPaid.toString()
         status.text = order.isDone.toString()
+    }
+
+    override fun message(msg: String) {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
+    }
+
+    override fun update() {
+        presenter.activityWasStarted(order.id)
     }
 
     override fun showProducts(products: List<Product>) {
