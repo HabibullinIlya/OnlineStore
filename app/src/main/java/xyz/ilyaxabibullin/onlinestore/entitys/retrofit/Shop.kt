@@ -13,7 +13,7 @@ class Shop {
 
     @SerializedName("name")
     @Expose
-    var name = 0
+    var name = ""
 
     @SerializedName("description")
     @Expose
@@ -24,9 +24,9 @@ class Shop {
     var owner:User = User()
 
 
-    @SerializedName("date")
+    @SerializedName("open_date")
     @Expose
-    var date:Date = Date()
+    var date:String = ""
 
     @SerializedName("products")
     @Expose

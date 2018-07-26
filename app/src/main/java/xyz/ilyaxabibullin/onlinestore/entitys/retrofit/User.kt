@@ -29,4 +29,9 @@ class User{
     @SerializedName("roles")
     @Expose
     var roles: List<String>? = null
+
+
+    @SerializedName("is_shop_owner")
+    @Expose
+    var isShopOwner = false
 }

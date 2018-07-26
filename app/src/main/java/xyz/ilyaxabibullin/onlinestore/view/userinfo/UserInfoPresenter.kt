@@ -9,6 +9,14 @@ import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.UserResponse
 import xyz.ilyaxabibullin.onlinestore.network.UserApi
 
 class UserInfoPresenter(var view: UserInfoContract.View) : UserInfoContract.Presenter {
+    override fun toShopBtnWasClicked(id: Int) {
+        view.navigateToShop()
+    }
+
+    override fun toCreateShopBtnWasClicked() {
+        view.navigateToCreateShop()
+    }
+
     override fun activityWasStarted(id: Int) {
         App.retrofit.create(UserApi::class.java).getUser(id).enqueue(object : Callback<UserResponse> {
             override fun onFailure(call: Call<UserResponse>?, t: Throwable?) {
@@ -20,6 +28,9 @@ class UserInfoPresenter(var view: UserInfoContract.View) : UserInfoContract.Pres
                     val user: User = response.body()!!
                             .user!!
                     view.showInfo(user)
+                    if (user.isShopOwner){
+                        view.hideCreateShopBtn()
+                    }
                 }
             }
 

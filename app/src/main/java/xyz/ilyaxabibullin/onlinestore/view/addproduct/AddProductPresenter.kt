@@ -40,9 +40,11 @@ class AddProductPresenter(var view:AddProductContract.View,var context:Context):
                 if(response!!.isSuccessful){
                     if(!response.body()!!.error){
                         view.message("product was added in your shop")
+                    } else{
+                        view.message(response.body()!!.message)
                     }
-                    
                 }
+                view.message("error with network")
             }
 
         })

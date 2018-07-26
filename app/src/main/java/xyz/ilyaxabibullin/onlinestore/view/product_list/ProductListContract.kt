@@ -14,7 +14,8 @@ interface ProductListContract {
     }
 
     interface View {
-
+        fun setItMyProducts(itMyProducts:Boolean)
+        fun getShopOwnerId():Int
         fun loadNextPage(products: ArrayList<Product>)
         fun showItems(items: ArrayList<Product>);
     }

@@ -20,6 +20,10 @@ class Product{
     @Expose
     var description = ""
 
+    @SerializedName("shop")
+    @Expose
+    var shop: Shop? = null
+
 
 
     @SerializedName("amount")

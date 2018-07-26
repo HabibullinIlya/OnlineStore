@@ -71,7 +71,7 @@ class CartActivity : BaseActivity(),CartContract.View {
         adapter = ProductListAdapter(products,this)
         rv.adapter = adapter
 
-        //TODO("")//переход к оформлению заказа
+
     }
 
     private fun bind(position: Int) {

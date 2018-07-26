@@ -35,4 +35,5 @@
     <string name="date">date</string>
     <string name="payment">payment</string>
     <string name="status">status</string>
+    <string name="shop">shop</string>
 </resources>

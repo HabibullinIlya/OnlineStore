@@ -33,5 +33,6 @@
     <string name="date">Дата</string>
     <string name="payment">Оплата</string>
     <string name="status">Статус</string>
+    <string name="shop">shop</string>
 
 </resources>

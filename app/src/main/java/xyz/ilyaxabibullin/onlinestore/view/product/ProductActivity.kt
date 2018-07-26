@@ -81,7 +81,7 @@ class ProductActivity: BaseActivity(),ProductContract.View {
         name_product.text = product.name
         price_product.text = product.price.toString()
         number_of_product.text = product.number.toString()
-        description_product.text = product.description.toString()
+        description_product.text = product.description
     }
 
     override fun successMessage() {
@@ -95,7 +95,7 @@ class ProductActivity: BaseActivity(),ProductContract.View {
 
     override fun navigateToShop() {
         val intent = Intent(this,ShopActivity::class.java)
-        intent.putExtra("id", App.id)
+        intent.putExtra("shop_id", product.shop!!.id.toString())
         startActivity(intent)
     }
 

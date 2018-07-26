@@ -31,4 +31,19 @@
         android:text="@string/name_of_shop"
         android:clickable="true"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/create_shop"
+        android:text="@string/create_shop"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/to_shop_btn"
+        android:text="@string/shop"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"/>
 </LinearLayout>

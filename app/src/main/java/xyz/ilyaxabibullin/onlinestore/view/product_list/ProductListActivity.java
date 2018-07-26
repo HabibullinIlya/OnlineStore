@@ -41,28 +41,49 @@ public class ProductListActivity extends AppCompatActivity
 
     boolean itMyProducts = false;
 
-    ArrayList<Product> products;
+    public boolean isItMyProducts() {
+        return itMyProducts;
+    }
+
+    @Override
+    public void setItMyProducts(boolean itMyProducts) {
+        this.itMyProducts = itMyProducts;
+        if(itMyProducts){
+            addProduct.setVisibility(View.VISIBLE);
+        }else{
+            addProduct.setVisibility(View.GONE);
+        }
+    }
+
+
+
+    ArrayList<Product> products = new ArrayList<>();
     Toolbar mActionToolbar;
 
     ProductListContract.Presenter presenter;
 
+
+    //for recycler
     RecyclerView rv;
     ProductListAdapter adapter;
     LinearLayoutManager manager;
-    ProgressBar progressBar;
-    FloatingActionButton addProduct;
+
 
     private DrawerLayout mDrawerLayout;
 
-
+    //for pagination
     private static final int PAGE_START = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES = 1;
     private int currentPage = PAGE_START;
-    NavigationView navigationView;
 
-    private int startAction;
+
+
+    NavigationView navigationView;
+    ProgressBar progressBar;
+    FloatingActionButton addProduct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +96,10 @@ public class ProductListActivity extends AppCompatActivity
 
         Log.d(TAG, "it my products" + String.valueOf(itMyProducts));
 
-        //progressBar = findViewById(R.id.progress_bar);
+
         initWidgets();
         presenter = new ProductListPresenter(this);
+
         navigationView.setNavigationItemSelectedListener(
                 menuItem -> {
                     // set item as selected to persist highlight
@@ -106,19 +128,12 @@ public class ProductListActivity extends AppCompatActivity
                 });
 
 
-        products = new ArrayList<>();
-        //fakeData();
+
+
 
         adapter = new ProductListAdapter(products, this);
         rv.setAdapter(adapter);
-
-        adapter.setOnItemClickListener((position, v) -> {
-            /*Toast toast = Toast.makeText(ProductListActivity.this, String.valueOf(position), Toast.LENGTH_LONG);
-            toast.show();*/
-            bind(position);
-
-        });
-
+        adapter.setOnItemClickListener((position, v) -> bind(position));
 
         rv.addOnScrollListener(new PaginationScrollListener(manager) {
             @Override
@@ -150,26 +165,15 @@ public class ProductListActivity extends AppCompatActivity
             }
         });
 
-        //presenter.defaultLoadProducts();
+
         int action = Integer.parseInt(getIntent().getStringExtra("action"));
 
         Log.d(TAG, "action " + String.valueOf(action));
 
-        if (action == ProductAction.SHOP_PRODUCTS.getAction()) {
-            Log.d(TAG, "it my products" + String.valueOf(itMyProducts));
-            itMyProducts = true;
-            Log.d(TAG, "it my products" + String.valueOf(itMyProducts));
-        }
 
-        if (itMyProducts) {
-            addProduct.setVisibility(View.VISIBLE);
-        } else {
-            addProduct.setVisibility(View.GONE);
-        }
 
         presenter.activityStarted(action);
-/*
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 //loadFirstPage(products);
@@ -179,6 +183,33 @@ public class ProductListActivity extends AppCompatActivity
 
     }
 
+
+
+    private void initWidgets() {
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mActionToolbar = findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(mActionToolbar);
+        navigationView = findViewById(R.id.nav_view);
+        //progressBar = findViewById(R.id.progress_bar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        rv = findViewById(R.id.rv);
+
+        manager = new LinearLayoutManager(this);
+        rv.setLayoutManager(manager);
+        addProduct = findViewById(R.id.add_prod);
+        addProduct.setVisibility(View.GONE);
+
+        addProduct.setOnClickListener(v -> {
+            navigateToAddProduct();
+        });
+
+    }
     private void loadFirstPage(List<Product> products) {
         //List<Product> movies = Product.Companion.createProducts(adapter.getItemCount());
         // progressBar.setVisibility(View.GONE);
@@ -202,35 +233,9 @@ public class ProductListActivity extends AppCompatActivity
         else
             isLastPage = true;
     }
-
-    private void initWidgets() {
-
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        mActionToolbar = findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(mActionToolbar);
-
-        navigationView = findViewById(R.id.nav_view);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        rv = findViewById(R.id.rv);
-
-        manager = new LinearLayoutManager(this);
-        rv.setLayoutManager(manager);
-        addProduct = findViewById(R.id.add_prod);
-        addProduct.setVisibility(View.GONE);
-
-        addProduct.setOnClickListener(v -> {
-            navigateToAddProduct();
-        });
-
-    }
     public void onResume() {
         super.onResume();
-        Log.d(TAG,"onPostResume");
+        Log.d(TAG,"onResume");
     }
 
     @Override
@@ -245,9 +250,7 @@ public class ProductListActivity extends AppCompatActivity
         rv.setAdapter(adapter);
 
 
-        adapter.setOnItemClickListener(((position, v) -> {
-            bind(position);
-        }));
+        adapter.setOnItemClickListener(((position, v) -> bind(position)));
 
     }
 
@@ -292,6 +295,11 @@ public class ProductListActivity extends AppCompatActivity
             }
         });
         return true;
+    }
+
+    @Override
+    public int getShopOwnerId(){
+        return Integer.parseInt(getIntent().getStringExtra("shop_id"));//shitcode
     }
 
     private void bind(int position) {

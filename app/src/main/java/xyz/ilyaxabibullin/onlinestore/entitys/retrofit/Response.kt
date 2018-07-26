@@ -7,4 +7,8 @@ open class Response{
     @SerializedName("error")
     @Expose
     var error = false
+
+    @SerializedName("message")
+    @Expose
+    var message = ""
 }
