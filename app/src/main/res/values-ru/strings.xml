@@ -12,7 +12,7 @@
     <string name="consent">Я согласен на обработку персональных данных</string>
     <string name="fail_login">Ошибка авторизации</string>
     <string name="buy_now">Купить</string>
-    <string name="add_to_cart">В корзину</string>
+    <string name="add_to_cart">Добавить в корзину</string>
     <string name="fail_pass_eq">Пароли не совпадают</string>
     <string name="fail_pass_small">Пароль должен содержать больше 8 символов</string>
     <string name="name_of_shop">Название магазина</string>
@@ -25,10 +25,13 @@
     <string name="amount">Количество</string>
     <string name="add_product">Добавить товар</string>
     <string name="category">Категория</string>
-    <string name="profile">profile</string>
-    <string name="cart">cart</string>
-    <string name="order">order</string>
-    <string name="orders">orders</string>
-    <string name="pay">pay</string>
+    <string name="profile">Профиль</string>
+    <string name="cart">Корзина</string>
+    <string name="order">Заказ</string>
+    <string name="orders">Заказы</string>
+    <string name="pay">Оплатить</string>
+    <string name="date">Дата</string>
+    <string name="payment">Оплата</string>
+    <string name="status">Статус</string>
 
 </resources>

@@ -1,13 +1,14 @@
 package xyz.ilyaxabibullin.onlinestore.view.product
 
-interface ProductContract {
-    interface View{
+import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
 
-        fun showProduct(name:String,description:String,amount:Int,price:Double)//TODO()//переписать через сущность
+interface ProductContract {
+    interface View {
+
+        fun showProduct(product: Product)
         fun navigateToShop()
-        fun navigateToOrder()
         fun successMessage()
-        fun errorMessage(msg:String)
+        fun errorMessage(msg: String)
 
 
     }
@@ -15,12 +16,11 @@ interface ProductContract {
     interface Model {
 
     }
-    interface Presenter{
-        fun activityWasStarted(id:Int)
 
-        fun btnBuyWasClicked(id:Int)
-        fun btnToCartWasClicked(id:Int)
-        fun btnToShopWasClicked(id:Int)
+    interface Presenter {
+        fun activityWasStarted(id: Int)
+        fun btnToCartWasClicked(id: Int)
+        fun btnToShopWasClicked(id: Int)
 
     }
 }

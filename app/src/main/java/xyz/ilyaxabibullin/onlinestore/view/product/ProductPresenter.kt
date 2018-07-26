@@ -27,18 +27,13 @@ class ProductPresenter(var view: ProductContract.View) : ProductContract.Present
                         var product = response!!
                                 .body()!!
                                 .product!!
-                        view.showProduct(product.name,
-                                product.description,
-                                product.number,
-                                product.price)
+                        view.showProduct(product)
                     }
 
                 })
     }
 
-    override fun btnBuyWasClicked(id: Int) {
-        view.navigateToOrder()
-    }
+
 
     override fun btnToCartWasClicked(id: Int) {
         App.retrofit.create(CartsApi::class.java).addToCart(id = id)

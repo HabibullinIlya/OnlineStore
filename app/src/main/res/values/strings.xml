@@ -32,4 +32,7 @@
     <string name="order">order</string>
     <string name="orders">orders</string>
     <string name="pay">pay</string>
+    <string name="date">date</string>
+    <string name="payment">payment</string>
+    <string name="status">status</string>
 </resources>

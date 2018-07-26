@@ -13,6 +13,7 @@ import xyz.ilyaxabibullin.onlinestore.view.order.OrderActivity
 
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
+import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
 import xyz.ilyaxabibullin.onlinestore.view.cart.CartActivity
 import xyz.ilyaxabibullin.onlinestore.view.shop.ShopActivity
 
@@ -30,6 +31,8 @@ class ProductActivity: BaseActivity(),ProductContract.View {
     private lateinit var priceTextView: TextView
     private lateinit var numberTextView: TextView
     private lateinit var descriptionTextView: TextView
+
+    private lateinit var product: Product
 
     private var productId: Int = 0
 
@@ -65,10 +68,7 @@ class ProductActivity: BaseActivity(),ProductContract.View {
         to_shop.setOnClickListener{
             presenter.btnToShopWasClicked(productId)
         }
-        buy_now_btn.setOnClickListener {
-            presenter.btnBuyWasClicked(productId)
-        }
-        to_basket_btn.setOnClickListener{
+                to_basket_btn.setOnClickListener{
             presenter.btnToCartWasClicked(productId)
         }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -76,11 +76,12 @@ class ProductActivity: BaseActivity(),ProductContract.View {
 
     }
 
-    override fun showProduct(name: String, description: String, amount: Int, price: Double) {
-        name_product.text = name
-        price_product.text = price.toString()
-        number_of_product.text = amount.toString()
-        description_product.text = amount.toString()
+    override fun showProduct(product:Product) {
+        this.product = product
+        name_product.text = product.name
+        price_product.text = product.price.toString()
+        number_of_product.text = product.number.toString()
+        description_product.text = product.description.toString()
     }
 
     override fun successMessage() {
@@ -98,10 +99,7 @@ class ProductActivity: BaseActivity(),ProductContract.View {
         startActivity(intent)
     }
 
-    override fun navigateToOrder() {
-        val intent = Intent(this, OrderActivity::class.java)
-        startActivity(intent)
-    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

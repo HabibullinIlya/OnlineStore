@@ -1,6 +1,7 @@
 package xyz.ilyaxabibullin.onlinestore.view.order
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,13 +10,14 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_order.*
-import kotlinx.android.synthetic.main.order_item.*
+
 
 
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Order
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product
+import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity
 import xyz.ilyaxabibullin.onlinestore.view.product_list.OnItemClickListener
 import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductListAdapter
 
@@ -23,10 +25,10 @@ class OrderActivity : BaseActivity(),OrderContract.View {
 
     private val TAG = javaClass.toString()
 
-    lateinit var mActionToolbar: Toolbar
-    lateinit var rv: RecyclerView
-    lateinit var adapter: ProductListAdapter
-    lateinit var manager: LinearLayoutManager
+    private lateinit var mActionToolbar: Toolbar
+    private lateinit var rv: RecyclerView
+    private lateinit var adapter: ProductListAdapter
+    private lateinit var manager: LinearLayoutManager
 
     lateinit var order: Order
     var products = ArrayList<Product>()
@@ -66,7 +68,7 @@ class OrderActivity : BaseActivity(),OrderContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                this.finish();
+                this.finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -75,6 +77,9 @@ class OrderActivity : BaseActivity(),OrderContract.View {
 
     override fun showOrder(order: Order) {
         id_product_ord_n.text = order.id.toString()
+        order_date_.text = order.date.toString()
+        is_paid.text = order.isPaid.toString()
+        status.text = order.isDone.toString()
     }
 
     override fun showProducts(products: List<Product>) {
@@ -84,6 +89,9 @@ class OrderActivity : BaseActivity(),OrderContract.View {
         adapter.setOnItemClickListener(object: OnItemClickListener{
             override fun onItemClick(position: Int, v: View) {
                 Log.d(TAG,"kek")
+                val intent = Intent(this@OrderActivity, ProductActivity::class.java)
+                intent.putExtra("product_id",products[position].id.toString())
+                startActivity(intent)
             }
 
         })

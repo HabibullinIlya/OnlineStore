@@ -37,7 +37,12 @@ class AddProductPresenter(var view:AddProductContract.View,var context:Context):
             }
 
             override fun onResponse(call: Call<ProductResponse>?, response: Response<ProductResponse>?) {
-                TODO("not implemented") //парсим json, кладем в бд, открыве
+                if(response!!.isSuccessful){
+                    if(!response.body()!!.error){
+                        view.message("product was added in your shop")
+                    }
+                    
+                }
             }
 
         })

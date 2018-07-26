@@ -67,12 +67,6 @@
             android:layout_marginStart="8dp"
             android:text="@string/add_to_cart" />
 
-        <Button
-            android:id="@+id/buy_now_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/buy_now" />
 
 
     </LinearLayout>

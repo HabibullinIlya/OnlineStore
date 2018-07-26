@@ -25,11 +25,71 @@
         android:layout_marginTop="16dp"
         android:text="number of order" />
 
+    <TextView
+        android:id="@+id/order_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_product_ord_n"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/date" />
+
+    <TextView
+        android:id="@+id/order_date_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_product_ord_n"
+        android:layout_toRightOf="@+id/order_date_label"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/date" />
+
+    <TextView
+        android:id="@+id/is_paid_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_date_"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/payment" />
+
+    <TextView
+        android:id="@+id/is_paid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_date_"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@id/is_paid_label"
+        android:text="@string/payment"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/status_label"
+        android:layout_below="@id/is_paid_label"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/status"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/status"
+        android:layout_below="@id/is_paid_label"
+        android:layout_toRightOf="@+id/status_label"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/status"
+        android:textStyle="bold"/>
+
+
     <Button
         android:id="@+id/order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/id_product_ord_n"
+        android:layout_below="@id/status_label"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/pay" />
