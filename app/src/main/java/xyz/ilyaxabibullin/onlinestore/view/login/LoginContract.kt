@@ -18,6 +18,6 @@ interface LoginContract {
     }
 
     interface Model {
-
+        fun saveTokenToDB(token:String)
     }
 }

@@ -5,7 +5,7 @@ import xyz.ilyaxabibullin.onlinestore.entitys.realm.Token
 interface SplashContract{
     interface View{
         fun navigateToLogin()
-        fun navigateToMyShop()
+        fun navigateToProductList()
     }
     interface Presenter{
         fun activityWasStarted()

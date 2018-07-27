@@ -5,6 +5,8 @@ import android.os.Bundle
 import xyz.ilyaxabibullin.onlinestore.R
 import xyz.ilyaxabibullin.onlinestore.base.BaseActivity
 import xyz.ilyaxabibullin.onlinestore.view.login.LoginActivity
+import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductAction
+import xyz.ilyaxabibullin.onlinestore.view.product_list.ProductListActivity
 import xyz.ilyaxabibullin.onlinestore.view.shop.ShopActivity
 
 class SplashActivity : BaseActivity(),SplashContract.View {
@@ -23,8 +25,9 @@ class SplashActivity : BaseActivity(),SplashContract.View {
         finish()
     }
 
-    override fun navigateToMyShop() {
-        var intent = Intent(this,ShopActivity::class.java)
+    override fun navigateToProductList() {
+        var intent = Intent(this,ProductListActivity::class.java)
+        intent.putExtra("action", ProductAction.DEFAULT.Action.toString())
         startActivity(intent)
         finish()
     }

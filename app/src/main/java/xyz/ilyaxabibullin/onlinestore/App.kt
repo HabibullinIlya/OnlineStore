@@ -21,7 +21,6 @@ class App: Application(){
         var token:String = ""
         lateinit var retrofit:Retrofit
 
-
         //temp URL
         private val baseUrl = "http://xz15e.mocklab.io"
 

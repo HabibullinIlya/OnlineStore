@@ -14,11 +14,14 @@ class LoginPresenter : LoginContract.Presenter {
     val TAG = "LoginPresenter"
 
     val view: LoginContract.View
+    val model: LoginContract.Model = LoginModel()
     val context: Context
+
 
     constructor(view: LoginContract.View,context:Context) {
         this.view = view
         this.context = context
+
     }
 
     override fun authorisation(login: String, password: String) {
@@ -39,7 +42,9 @@ class LoginPresenter : LoginContract.Presenter {
 
                         Log.d(TAG, App.id.toString())
                         Log.d(TAG, App.token)
+                        model.saveTokenToDB(App.token)
                         view.navigateToMyShop()
+
                     } else {
                         Log.d(TAG, "logining error")
                         //TODO("")//сделать через ресурсы
