@@ -25,11 +25,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import xyz.ilyaxabibullin.onlinestore.R;
 import xyz.ilyaxabibullin.onlinestore.base.PaginationScrollListener;
+import xyz.ilyaxabibullin.onlinestore.entitys.realm.Token;
 import xyz.ilyaxabibullin.onlinestore.entitys.retrofit.Product;
 import xyz.ilyaxabibullin.onlinestore.view.addproduct.AddProductActivity;
 import xyz.ilyaxabibullin.onlinestore.view.cart.CartActivity;
+import xyz.ilyaxabibullin.onlinestore.view.login.LoginActivity;
 import xyz.ilyaxabibullin.onlinestore.view.order.list.OrdersListActivity;
 import xyz.ilyaxabibullin.onlinestore.view.product.ProductActivity;
 import xyz.ilyaxabibullin.onlinestore.view.userinfo.UserInfoActivity;
@@ -120,6 +124,18 @@ public class ProductListActivity extends AppCompatActivity
                         case(R.id.nav_orders):
                             Intent intent3 = new Intent(ProductListActivity.this, OrdersListActivity.class);
                             startActivity(intent3);
+                            return true;
+                        case(R.id.nav_logout):
+                            Intent intent4 = new Intent(ProductListActivity.this, LoginActivity.class);
+                            Realm realm = Realm.getDefaultInstance();
+                            RealmResults<Token> result = realm.where(Token.class).findAll();
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    result.deleteAllFromRealm();
+                                }
+                            });
+                            startActivity(intent4);
                             return true;
                         default:
                             return true;

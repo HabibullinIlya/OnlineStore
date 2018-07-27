@@ -34,5 +34,6 @@
     <string name="payment">Оплата</string>
     <string name="status">Статус</string>
     <string name="shop">shop</string>
+    <string name="log_out">Log out</string>
 
 </resources>

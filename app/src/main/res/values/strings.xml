@@ -37,4 +37,5 @@
     <string name="status">status</string>
     <string name="shop">shop</string>
     <string name="problem_with_network">problem with network</string>
+    <string name="log_out">Log out</string>
 </resources>
